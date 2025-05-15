@@ -151,11 +151,9 @@ def reset_progress(sections, page_key):
     # Clear all checkboxes and read sections
     for title in sections.keys():
         checkbox_key = f"read_checkbox_{title}"
-        # Ensure the checkbox key exists in session state before modifying it
-        if checkbox_key not in st.session_state:
-            st.session_state[checkbox_key] = False  # Initialize the checkbox state
-        else:
-            st.session_state[checkbox_key] = False  # Set checkbox state to False
+        # Remove the checkbox key from session state if it exists
+        if checkbox_key in st.session_state:
+            del st.session_state[checkbox_key]  # Remove the key entirely
 
     # Reset the read sections set for the current page
     st.session_state[page_key] = set()
