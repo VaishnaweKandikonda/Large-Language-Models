@@ -121,15 +121,6 @@ def load_feedback():
 # -----------------------------------------------------------------------------
 # Progress Persistence
 # -----------------------------------------------------------------------------
-def save_progress(page_key):
-    """Save progress for a specific page to a JSON file."""
-    try:
-        progress_data = load_progress()
-        progress_data[page_key] = list(st.session_state.get(page_key, []))
-        with open(PROGRESS_FILE, "w") as f:
-            json.dump(progress_data, f)
-    except Exception as e:
-        st.error(f"Error saving progress: {e}")
 
 def load_progress():
     """Load progress from a JSON file."""
@@ -142,6 +133,16 @@ def load_progress():
         st.error(f"Error loading progress: {e}")
         return {"read_sections": []}
     
+def save_progress(page_key):
+    """Save progress for a specific page to a JSON file."""
+    try:
+        progress_data = load_progress()
+        progress_data[page_key] = list(st.session_state.get(page_key, []))
+        with open(PROGRESS_FILE, "w") as f:
+            json.dump(progress_data, f)
+    except Exception as e:
+        st.error(f"Error saving progress: {e}")
+    
 def reset_progress(sections, page_key):
     """Reset all progress and clear checkboxes for the given sections."""
     reset_expansion_state()
@@ -151,13 +152,13 @@ def reset_progress(sections, page_key):
     for title in sections.keys():
         checkbox_key = f"read_checkbox_{title}"
         if checkbox_key in st.session_state:
-            del st.session_state[checkbox_key]  # Remove the checkbox state
+            st.session_state[checkbox_key] = False  # Set checkbox state to False
 
     # Reset the read sections set for the current page
     st.session_state[page_key] = set()
 
+    # Set a flag to indicate that reset was triggered
+    st.session_state["reset_triggered"] = True
+
     # Save progress to file
     save_progress(page_key)
-
-    # Notify the user
-    st.success("Progress reset! All checkboxes have been cleared.")
