@@ -184,9 +184,17 @@ def render():
     
     if st.button("Reset Progress"):
         reset_progress(prompt_sections, "prompt_read_sections")
+        st.rerun()
 
     # Save progress to file whenever it changes
     save_progress("prompt_read_sections")
+    
+      # Display success message if reset was triggered
+    if st.session_state.get("reset_triggered", False):
+        st.success("Progress reset! All checkboxes have been cleared.")
+        # Clear the flag after displaying the message
+        st.session_state["reset_triggered"] = False
+        
     reset_expand_collapse_triggers()
 
     # --- Footer ---
