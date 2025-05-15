@@ -200,7 +200,9 @@ pre {
 
 /* === BUTTON STYLING === */
 .button {
-    display: inline-block;
+    display: inline-flex; /* Use flexbox for centering */
+    justify-content: center; /* Center text horizontally */
+    align-items: center; /* Center text vertically */
     padding: 0.6rem 1.2rem; /* Adjust padding for a balanced look */
     font-size: 1rem; /* Base font size for buttons */
     font-weight: 600; /* Slightly bold text */
@@ -210,6 +212,7 @@ pre {
     border-radius: 8px; /* Rounded corners for a modern look */
     cursor: pointer; /* Pointer cursor for interactivity */
     transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+    text-align: center; /* Ensure text alignment */
 }
 
 .button:hover {
