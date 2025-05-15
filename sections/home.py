@@ -91,7 +91,6 @@ def render():
     # Sub-topic selector
     col_left, col_right = st.columns([1, 1])
     with col_right:
-        st.markdown("<div style='margin: 0; font-weight: bold;'>Sub-topic</div>", unsafe_allow_html=True)
         default_index = 0  # "All" is the first item
         subtopic = st.selectbox("Sub-topic", ["All"] + list(home_sections.keys()), key="Sub-topic", index=default_index)
 
@@ -125,8 +124,8 @@ def render():
     # Save progress to file whenever it changes
     
     if st.button("Reset Progress"):
-        save_progress("home_read_sections")
         reset_progress(home_sections, "home_read_sections")
+        save_progress("home_read_sections")
     
     reset_expand_collapse_triggers()
     
