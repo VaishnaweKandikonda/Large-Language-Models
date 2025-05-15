@@ -85,6 +85,7 @@ def render():
             key="ethics_subtopic"
         )
 
+    # --- Display sections with checkboxes ---
     for title, content in ethics_sections.items():
         if ethics_subtopic == "All" or ethics_subtopic == title:
             with expander_section(title):
@@ -169,6 +170,18 @@ def render():
                                 st.warning("Please provide a valid feature name to enable the download.")
                 else:
                     # Display content for other sections
+                    col1, col2 = st.columns([5, 1])
+                    with col2:
+                        checkbox_key = f"read_checkbox_{title}"
+                        if checkbox_key not in st.session_state:
+                            st.session_state[checkbox_key] = title in st.session_state["ethics_read_sections"]
+
+                        completed = st.checkbox("Mark as complete", key=checkbox_key, value=st.session_state[checkbox_key])
+                        if completed:
+                            st.session_state["ethics_read_sections"].add(title)
+                        else:
+                            st.session_state["ethics_read_sections"].discard(title)
+
                     st.markdown(content)
 
     # --- Progress tracking ---
