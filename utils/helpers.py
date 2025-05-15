@@ -121,11 +121,13 @@ def load_feedback():
 # -----------------------------------------------------------------------------
 # Progress Persistence
 # -----------------------------------------------------------------------------
-def save_progress():
-    """Save progress to a JSON file."""
+def save_progress(page_key):
+    """Save progress for a specific page to a JSON file."""
     try:
+        progress_data = load_progress()
+        progress_data[page_key] = list(st.session_state.get(page_key, []))
         with open(PROGRESS_FILE, "w") as f:
-            json.dump({"read_sections": list(st.session_state["read_sections"])}, f)
+            json.dump(progress_data, f)
     except Exception as e:
         st.error(f"Error saving progress: {e}")
 
