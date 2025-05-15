@@ -157,16 +157,20 @@ def render():
                                 Final Risk Assessment: {risk_level}
                                 """
                                 review_file = io.StringIO(review_data)
-                                st.download_button(
-                                    label="📥 Download Review",
-                                    data=review_file.getvalue(),
-                                    file_name=f"{feature_name}_ethical_review.txt",
-                                    mime="text/plain"
-                                )
-                            else:
-                                st.warning("Please provide a valid feature name to enable the download.")
-                else:
-                    st.markdown(content)
+
+                                # Ensure review_data is not empty before creating the download button
+                                if review_data.strip():
+                                    st.download_button(
+                                        label="📥 Download Review",
+                                        data=review_file.getvalue(),
+                                        file_name=f"{feature_name}_ethical_review.txt",
+                                        mime="text/plain"
+                                    )
+                                else:
+                                    st.warning("Review data is empty. Please fill out the form to enable the download.")
+    else:
+        st.warning("Please provide a valid feature name to enable the download.")                else:
+    st.markdown(content)
 
     # --- Progress tracking ---
     total_sections = len(ethics_sections)
