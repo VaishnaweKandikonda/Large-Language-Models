@@ -18,7 +18,7 @@ def render():
     st.title("Temperature & Sampling")
     display_expand_collapse_controls(current_page)
 
-    # --- Load progress from file ---
+   # --- Load progress from file ---
     if "read_sections" not in st.session_state:
         progress_data = load_progress()
         st.session_state["read_sections"] = set(progress_data.get("read_sections", []))

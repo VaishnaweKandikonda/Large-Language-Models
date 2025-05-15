@@ -152,8 +152,7 @@ def reset_progress(sections):
             del st.session_state[checkbox_key]  # Remove the checkbox state
 
     # Reset the read sections set for the current page
-    page_key = f"{sections}_read_sections"
-    st.session_state[page_key] = set()
+    st.session_state["read_sections"] = set()
 
     # Save progress to file
     save_progress()
