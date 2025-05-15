@@ -1,5 +1,4 @@
 import streamlit as st
-import json
 from datetime import datetime  # Import datetime for the footer
 from utils.helpers import (
     display_expand_collapse_controls,
@@ -10,8 +9,6 @@ from utils.helpers import (
     save_progress,
     load_progress, inject_custom_css
 )
-
-PROGRESS_FILE = "progress.json"
 
 def render(): 
     inject_custom_css() 

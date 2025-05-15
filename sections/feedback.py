@@ -72,7 +72,7 @@ def render():
         df.index += 1
         df.index.name = "No."
 
-        st.markdown("### 📬 All Submitted Feedback")
+        st.markdown("### All Submitted Feedback")
         st.dataframe(df, use_container_width=True)
     else:
         st.info("No feedback submitted yet. Be the first to contribute!")
