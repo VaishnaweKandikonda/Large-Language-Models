@@ -7,13 +7,13 @@ from utils.helpers import (
     reset_expand_collapse_triggers,
     reset_progress,
     save_progress,
-    load_progress,inject_custom_css
+    load_progress, inject_custom_css
 )
 
 PROGRESS_FILE = "progress.json"
 
 def render():
-    inject_custom_css() 
+    inject_custom_css()
     current_page = "Temperature & Sampling"
     st.title("Temperature & Sampling")
     display_expand_collapse_controls(current_page)
@@ -110,16 +110,19 @@ def render():
                         st.session_state["temperature_read_sections"].discard(title)
 
                 if title == "Adjust the Temperature":
+                    st.markdown(content)
                     temp = st.slider("Choose a temperature value", 0.1, 1.0, step=0.1, value=0.7)
+                    user_prompt = st.text_input("Enter a prompt to test:", "Describe our app in one sentence.")
+
                     if temp < 0.3:
                         st.success("Low Temperature (Factual & Consistent)")
-                        st.markdown("> Our app helps freelancers manage budgets. It's secure and simple.")
+                        st.markdown(f"> **Prompt:** {user_prompt}\n\n> **Output:** Our app helps freelancers manage budgets. It's secure and simple.")
                     elif temp < 0.7:
                         st.info("Medium Temperature (Balanced & Natural)")
-                        st.markdown("> Meet your financial sidekick — smart, helpful, and always on call.")
+                        st.markdown(f"> **Prompt:** {user_prompt}\n\n> **Output:** Meet your financial sidekick — smart, helpful, and always on call.")
                     else:
                         st.warning("High Temperature (Creative & Risky)")
-                        st.markdown("> Money? Managed. Chaos? Cancelled. Our app is your freedom button.")
+                        st.markdown(f"> **Prompt:** {user_prompt}\n\n> **Output:** Money? Managed. Chaos? Cancelled. Our app is your freedom button.")
                 else:
                     st.markdown(content)
 
