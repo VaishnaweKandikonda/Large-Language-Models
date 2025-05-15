@@ -45,9 +45,13 @@ def render():
         )
 
     # --- Display sections with expanders ---
+
     for title in api_sections:
         if cost_subtopic == "All" or cost_subtopic == title:
             with expander_section(title):
+                # Define two columns for layout
+                top_col_left, top_col_right = st.columns([5, 1])
+
                 with top_col_right:
                     checkbox_key = f"read_checkbox_{title}"
 
@@ -147,6 +151,7 @@ def render():
 
                     Optimizing cost = longer runway + happier investors.
                     """)
+
 
     # --- Reading Progress ---
     total = len(api_sections)
