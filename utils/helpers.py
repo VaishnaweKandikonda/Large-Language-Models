@@ -9,21 +9,6 @@ FEEDBACK_PATH = "feedback.csv"
 PROGRESS_FILE = "progress.json"
 
 # -----------------------------------------------------------------------------
-# Feedback Loading
-# -----------------------------------------------------------------------------
-@st.cache_data(ttl=3600)
-def load_feedback(path: str = FEEDBACK_PATH) -> list[dict]:
-    """Load feedback entries from a CSV file; return list of records or empty list."""
-    if os.path.exists(path):
-        try:
-            df = pd.read_csv(path)
-            return df.to_dict("records")
-        except Exception as e:
-            st.error(f"Error loading feedback: {e}")
-            return []
-    return []
-
-# -----------------------------------------------------------------------------
 # Session State Initialization
 # -----------------------------------------------------------------------------
 def init_session_state() -> None:
@@ -105,18 +90,26 @@ def reset_expand_collapse_triggers():
 # -----------------------------------------------------------------------------
 # Feedback Persistence
 # -----------------------------------------------------------------------------
-def store_feedback(entry: dict, path: str = FEEDBACK_PATH) -> None:
-    """Append a feedback dict to disk as a CSV row."""
-    try:
-        new_df = pd.DataFrame([entry])
-        if os.path.exists(path):
-            df = pd.read_csv(path)
-            df = pd.concat([df, new_df], ignore_index=True)
-        else:
-            df = new_df
-        df.to_csv(path, index=False)
-    except Exception as e:
-        st.error(f"Error saving feedback: {e}")
+
+FEEDBACK_PATH = "feedback.csv"
+
+@st.cache_data(ttl=3600)
+def store_feedback(entry):
+    """Store feedback entry into a CSV file."""
+    if os.path.exists(FEEDBACK_PATH):
+        # Append to existing file
+        df = pd.read_csv(FEEDBACK_PATH)
+        df = df.append(entry, ignore_index=True)
+    else:
+        # Create a new file
+        df = pd.DataFrame([entry])
+    df.to_csv(FEEDBACK_PATH, index=False)
+
+def load_feedback():
+    """Load feedback entries from the CSV file."""
+    if os.path.exists(FEEDBACK_PATH):
+        return pd.read_csv(FEEDBACK_PATH).to_dict(orient="records")
+    return []
 
 # -----------------------------------------------------------------------------
 # Progress Persistence

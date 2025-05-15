@@ -51,8 +51,13 @@ def render():
                     "Attachment Name": attachment.name if attachment else None
                 }
                 store_feedback(entry)
+
+                # Update session state with the new feedback entry
+                if "feedback_entries" not in st.session_state:
+                    st.session_state["feedback_entries"] = []
+                st.session_state["feedback_entries"].append(entry)
+
                 st.success(f"✅ Thank you, {name.strip()}! We truly appreciate your insights.")
-                st.session_state['feedback_entries'] = load_feedback()
 
     # --- Load feedback entries on first render ---
     if 'feedback_entries' not in st.session_state:
@@ -92,13 +97,13 @@ def render():
                 try:
                     if os.path.exists(FEEDBACK_PATH):
                         os.remove(FEEDBACK_PATH)
-                        st.success("✅ feedback.csv file deleted from disk.")
+                        st.success("feedback.csv file deleted from disk.")
                     else:
                         st.info("feedback.csv file not found.")
 
                     st.session_state["feedback_entries"] = []
                     st.cache_data.clear()
-                    st.success("✅ Feedback data cleared from memory and cache.")
+                    st.success("Feedback data cleared from memory and cache.")
                     st.rerun()
 
                 except Exception as e:
