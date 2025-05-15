@@ -6,25 +6,24 @@ body, h1, h2, h3, h4, h5, h6, p, li, span, div, label, input, textarea, select, 
     color: #2c3e50 !important; /* Dark gray-blue for text */
 }
 
-/* === STREAMLIT MARKDOWN === */
-[data-testid="stMarkdownContainer"] {
-    font-family: 'Arial', sans-serif !important; /* Enforce consistent font family for markdown */
-    font-size: 16px !important; /* Enforce base font size for markdown */
-    line-height: 1.6 !important; /* Enforce readability for markdown */
-    color: #2c3e50 !important; /* Enforce text color for markdown */
+/* === MAIN TITLE === */
+[data-testid="stAppViewContainer"] h1 {
+    font-family: 'Arial', sans-serif !important; /* Consistent font family */
+    font-size: 2.5rem !important; /* Larger font size for main title */
+    font-weight: bold !important; /* Bold font for emphasis */
+    text-align: center !important; /* Center align the main title */
+    color: #2c3e50 !important; /* Dark gray-blue for text */
+    margin-bottom: 1.5rem !important; /* Add spacing below the title */
 }
 
-/* === HEADINGS === */
-[data-testid="stMarkdownContainer"] h1,
+/* === SUBTITLES === */
 [data-testid="stMarkdownContainer"] h2,
-[data-testid="stMarkdownContainer"] h3,
-[data-testid="stMarkdownContainer"] h4,
-[data-testid="stMarkdownContainer"] h5,
-[data-testid="stMarkdownContainer"] h6 {
-    font-family: 'Arial', sans-serif !important; /* Ensure headers use the same font */
-    font-weight: bold !important; /* Make headers bold */
-    color: #2c3e50 !important; /* Dark gray-blue for headers */
-    margin-bottom: 0.5rem !important; /* Add spacing below headers */
+[data-testid="stMarkdownContainer"] h3 {
+    font-family: 'Arial', sans-serif !important; /* Consistent font family */
+    font-size: 1.8rem !important; /* Slightly smaller font size for subtitles */
+    font-weight: bold !important; /* Bold font for emphasis */
+    color: #34495e !important; /* Slightly darker gray-blue for subtitles */
+    margin-bottom: 1rem !important; /* Add spacing below subtitles */
 }
 
 /* === PARAGRAPHS === */
