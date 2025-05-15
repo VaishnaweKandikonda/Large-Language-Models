@@ -103,32 +103,36 @@ body, h1, h2, h3, h4, h5, h6, p, li, span, div, label, input, textarea, select, 
 
 /* === EXPAND/COLLAPSE BUTTONS === */
 .expand-collapse-container {
-    position: fixed;
-    top: 1rem; /* Reduced spacing */
-    right: 1rem; /* Reduced spacing */
     display: flex;
-    flex-direction: column;
-    gap: 0.2rem; /* Reduced gap */
-    font-size: 1.8rem; /* Slightly smaller font size */
-    user-select: none;
-    z-index: 1000;
+    justify-content: center; /* Center the buttons horizontally */
+    gap: 1rem; /* Add spacing between the buttons */
+    margin: 1rem 0; /* Add vertical spacing */
 }
 
 .expand-collapse-btn {
-    background: none;
-    border: none;
-    color: #3498db; /* Bright blue for buttons */
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px; /* Set a fixed width for consistency */
+    height: 50px; /* Set a fixed height for consistency */
+    font-size: 1.5rem; /* Adjust font size for better visibility */
     font-weight: bold;
-    cursor: pointer;
-    padding: 0;
-    margin: 0;
-    line-height: 1;
-    width: 28px; /* Slightly smaller size */
-    height: 28px; /* Slightly smaller size */
+    color: #ffffff; /* White text for contrast */
+    background-color: #3498db; /* Bright blue background */
+    border: none; /* Remove default border */
+    border-radius: 50%; /* Make the buttons circular */
+    cursor: pointer; /* Pointer cursor for interactivity */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
 }
 
 .expand-collapse-btn:hover {
-    color: #1abc9c; /* Bright teal for hover effect */
+    background-color: #1abc9c; /* Bright teal for hover effect */
+    transform: scale(1.1); /* Slightly enlarge on hover */
+}
+
+.expand-collapse-btn:active {
+    background-color: #2980b9; /* Slightly darker blue for active state */
+    transform: scale(1); /* Reset scale on click */
 }
 
 /* === CARD / TILE STYLING === */
@@ -237,38 +241,4 @@ pre {
         font-size: 0.9rem; /* Slightly smaller font size for smaller screens */
         padding: 0.5rem 1rem; /* Adjust padding for smaller screens */
     }
-}
-
-/* === EXPAND/COLLAPSE BUTTONS === */
-.expand-collapse-container {
-    display: flex;
-    justify-content: center; /* Center the buttons horizontally */
-    gap: 1rem; /* Add spacing between the buttons */
-    margin: 1rem 0; /* Add vertical spacing */
-}
-
-.expand-collapse-btn {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    width: 50px; /* Set a fixed width for consistency */
-    height: 50px; /* Set a fixed height for consistency */
-    font-size: 1.5rem; /* Adjust font size for better visibility */
-    font-weight: bold;
-    color: #ffffff; /* White text for contrast */
-    background-color: #3498db; /* Bright blue background */
-    border: none; /* Remove default border */
-    border-radius: 50%; /* Make the buttons circular */
-    cursor: pointer; /* Pointer cursor for interactivity */
-    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
-}
-
-.expand-collapse-btn:hover {
-    background-color: #1abc9c; /* Bright teal for hover effect */
-    transform: scale(1.1); /* Slightly enlarge on hover */
-}
-
-.expand-collapse-btn:active {
-    background-color: #2980b9; /* Slightly darker blue for active state */
-    transform: scale(1); /* Reset scale on click */
 }
