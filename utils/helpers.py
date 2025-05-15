@@ -5,12 +5,20 @@ import streamlit as st
 import json
 from contextlib import contextmanager
 
+# File paths for feedback and progress tracking
 FEEDBACK_PATH = "feedback.csv"
 PROGRESS_FILE = "progress.json"
 
+# -----------------------------------------------------------------------------
+# Custom CSS Injection
+# -----------------------------------------------------------------------------
 def inject_custom_css():
-    with open("style.css") as f:
-        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+    """Inject custom CSS from the style.css file."""
+    try:
+        with open("style.css") as f:
+            st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+    except FileNotFoundError:
+        st.warning("Custom CSS file not found. Default styles will be applied.")
 
 # -----------------------------------------------------------------------------
 # Session State Initialization
@@ -34,6 +42,7 @@ def is_valid_email(email: str) -> bool:
 # Expand / Collapse Controls
 # -----------------------------------------------------------------------------
 def display_expand_collapse_controls(current_page: str):
+    """Display expand/collapse buttons for sections."""
     visible_on_pages = [
         "Home", "Prompt Engineering", "Temperature & Sampling", "Hallucinations",
         "API Cost Optimization", "Ethics & Bias", "FAQs", "Glossary"
@@ -49,7 +58,6 @@ def display_expand_collapse_controls(current_page: str):
             st.session_state["expand_all_triggered"] = True
             st.session_state["collapse_all_triggered"] = False
     with col3:
-
         if st.button("➖", key="collapse-all"):
             st.session_state["expand_all_triggered"] = False
             st.session_state["collapse_all_triggered"] = True
@@ -94,34 +102,37 @@ def reset_expand_collapse_triggers():
 # -----------------------------------------------------------------------------
 # Feedback Persistence
 # -----------------------------------------------------------------------------
-
-FEEDBACK_PATH = "feedback.csv"
-
 @st.cache_data(ttl=3600)
 def store_feedback(entry):
     """Store feedback entry into a CSV file."""
-    if os.path.exists(FEEDBACK_PATH):
-        # Load existing feedback data
-        df = pd.read_csv(FEEDBACK_PATH)
-        # Append the new entry using pd.concat
-        new_entry_df = pd.DataFrame([entry])
-        df = pd.concat([df, new_entry_df], ignore_index=True)
-    else:
-        # Create a new DataFrame for the entry
-        df = pd.DataFrame([entry])
-    # Save the updated DataFrame to the CSV file
-    df.to_csv(FEEDBACK_PATH, index=False)
+    try:
+        if os.path.exists(FEEDBACK_PATH):
+            # Load existing feedback data
+            df = pd.read_csv(FEEDBACK_PATH)
+            # Append the new entry using pd.concat
+            new_entry_df = pd.DataFrame([entry])
+            df = pd.concat([df, new_entry_df], ignore_index=True)
+        else:
+            # Create a new DataFrame for the entry
+            df = pd.DataFrame([entry])
+        # Save the updated DataFrame to the CSV file
+        df.to_csv(FEEDBACK_PATH, index=False)
+    except Exception as e:
+        st.error(f"Error storing feedback: {e}")
 
 def load_feedback():
     """Load feedback entries from the CSV file."""
-    if os.path.exists(FEEDBACK_PATH):
-        return pd.read_csv(FEEDBACK_PATH).to_dict(orient="records")
-    return []
+    try:
+        if os.path.exists(FEEDBACK_PATH):
+            return pd.read_csv(FEEDBACK_PATH).to_dict(orient="records")
+        return []
+    except Exception as e:
+        st.error(f"Error loading feedback: {e}")
+        return []
 
 # -----------------------------------------------------------------------------
 # Progress Persistence
 # -----------------------------------------------------------------------------
-
 def load_progress():
     """Load progress from a JSON file."""
     try:
@@ -132,7 +143,7 @@ def load_progress():
     except Exception as e:
         st.error(f"Error loading progress: {e}")
         return {"read_sections": []}
-    
+
 def save_progress(page_key):
     """Save progress for a specific page to a JSON file."""
     try:
@@ -142,7 +153,7 @@ def save_progress(page_key):
             json.dump(progress_data, f)
     except Exception as e:
         st.error(f"Error saving progress: {e}")
-    
+
 def reset_progress(sections, page_key):
     """Reset all progress and clear checkboxes for the given sections."""
     reset_expansion_state()
@@ -151,7 +162,6 @@ def reset_progress(sections, page_key):
     # Clear all checkboxes and read sections
     for title in sections.keys():
         checkbox_key = f"read_checkbox_{title}"
-        # Remove the checkbox key from session state if it exists
         if checkbox_key in st.session_state:
             del st.session_state[checkbox_key]  # Remove the key entirely
 
