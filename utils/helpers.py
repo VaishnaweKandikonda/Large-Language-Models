@@ -43,7 +43,7 @@ def display_expand_collapse_controls(current_page: str):
         return
 
     # Handle button clicks using Streamlit
-    col1, col2, col3 = st.columns([6, 0.5, 0.5])
+    col1, col2, col3 = st.columns([6, 0.3, 0.5])
     with col2:
         if st.button("➕", key="expand-all"):
             st.session_state["expand_all_triggered"] = True
