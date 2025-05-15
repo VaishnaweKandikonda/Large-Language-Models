@@ -121,7 +121,6 @@ def render():
     st.progress(progress)
     st.caption(f"You’ve completed **{read_sections} of {total_sections}** sections ({progress}%)")
     
-    # Reset Progress Button
     if st.button("Reset Progress"):
         reset_progress(home_sections, "home_read_sections")
 
@@ -130,7 +129,6 @@ def render():
         st.success("Progress reset! All checkboxes have been cleared.")
         # Clear the flag after displaying the message
         st.session_state["reset_triggered"] = False
-        reset_expand_collapse_triggers()
     
     # --- Footer ---
     st.markdown("---")
