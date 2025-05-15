@@ -73,15 +73,5 @@ def render():
         with expander_section(term):
             st.markdown(definition)
 
-    # --- Generate and Download PDF ---
-    st.markdown("### Download Glossary")
-    pdf_path = "LLM_Glossary.pdf"
-    generate_glossary_pdf(glossary, pdf_path)  # Generate the PDF dynamically
-    try:
-        with open(pdf_path, "rb") as f:
-            st.download_button("Download Glossary as PDF", f, file_name="LLM_Glossary.pdf", mime="application/pdf")
-    except FileNotFoundError:
-        st.error("The glossary PDF file is not available. Please contact support.")
-
     # --- Final Note ---
     st.markdown("Explore, test, and apply these terms as you build with LLMs in your startup.")

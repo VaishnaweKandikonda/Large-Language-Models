@@ -117,57 +117,6 @@ def render():
                         - Prevents future reputational or legal risk
                         - Encourages intentional, responsible design decisions
                         """)
-
-                    with st.form("embedded_ethical_review_form"):
-                        st.subheader("🔍 Ethical Review Form")
-
-                        col1, col2 = st.columns(2)
-                        with col1:
-                            feature_name = st.text_input("Feature Name")
-                            bias_tested = st.radio("Bias Testing Completed?", ["Yes", "No"])
-                            human_review = st.radio("Human Review Process in Place?", ["Yes", "No"])
-                        with col2:
-                            risk_level = st.selectbox("Final Risk Assessment", ["Low", "Medium", "High"])
-                            disclosure = st.radio("Disclosure to Users?", ["Yes", "No"])
-
-                        purpose = st.text_area("Purpose of AI Usage")
-                        risks = st.text_area("Potential Ethical Risks (e.g., bias, exclusion, hallucination)")
-
-                        submitted = st.form_submit_button("Submit Review")
-
-                        if submitted:
-                            st.success("Review submitted. Please copy or document your answers for records.")
-                            st.markdown("### 📄 Review Summary")
-                            st.write(f"**Feature Name:** {feature_name}")
-                            st.write(f"**Purpose:** {purpose}")
-                            st.write(f"**Potential Risks:** {risks}")
-                            st.write(f"**Bias Testing Completed:** {bias_tested}")
-                            st.write(f"**Human Review In Place:** {human_review}")
-                            st.write(f"**Disclosure to Users:** {disclosure}")
-                            st.write(f"**Final Risk Assessment:** {risk_level}")
-
-                            # Create a downloadable file
-                            if feature_name.strip():  # Ensure the feature name is not empty
-                                review_data = f"""
-                                Feature Name: {feature_name}
-                                Purpose: {purpose}
-                                Potential Risks: {risks}
-                                Bias Testing Completed: {bias_tested}
-                                Human Review In Place: {human_review}
-                                Disclosure to Users: {disclosure}
-                                Final Risk Assessment: {risk_level}
-                                """
-                                review_file = io.StringIO(review_data)
-
-                                # Ensure review_data is not empty before creating the download button
-                                st.download_button(
-                                    label="📥 Download Review",
-                                    data=review_file.getvalue(),
-                                    file_name=f"{feature_name}_ethical_review.txt",
-                                    mime="text/plain"
-                                )
-                            else:
-                                st.warning("Please provide a valid feature name to enable the download.")
                 else:
                     # Display content for other sections
                     col1, col2 = st.columns([5, 1])
@@ -206,7 +155,7 @@ def render():
         """
         <div style='text-align: center; font-size: 14px; line-height: 1.6;'>
             <strong>LLM Guide for Startups</strong> — Practical insights for using language models responsibly and efficiently in startup settings.<br>
-            Built with ❤️ by:<br>
+            Built with  by:<br>
             • <strong>Vaishnavi Kandikonda</strong> — <a href="mailto:vaishnavi.kandikonda@ucdconnect.com">vaishnavi.kandikonda@ucdconnect.com</a><br>
             • <strong>Shivani Singh</strong> — <a href="mailto:shivani.singh@ucdconnect.ie">shivani.singh@ucdconnect.ie</a><br>
             • <strong>Kushal Pratap Singh</strong> — <a href="mailto:kushal.singh@ucdconnect.ie">kushal.singh@ucdconnect.ie</a><br><br>
