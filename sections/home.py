@@ -88,32 +88,24 @@ def render():
             "- Start small and scale smart with LLMs"
         )
     }
-
-    # --- Sub-topic selector ---
+    # Sub-topic selector
     col_left, col_right = st.columns([1, 1])
     with col_right:
-        # Add a small gap between the label and the dropdown
         st.markdown("<div style='margin: 0; font-weight: bold;'>Sub-topic</div>", unsafe_allow_html=True)
         default_index = 0  # "All" is the first item
         subtopic = st.selectbox("Sub-topic", ["All"] + list(home_sections.keys()), key="Sub-topic", index=default_index)
-   
-    # --- Display sections with expanders ---
+
+    # Display sections with expanders
     for title, content in home_sections.items():
         if subtopic == "All" or subtopic == title:
             with expander_section(title):
-                # Header with checkbox on the right
                 top_col_left, top_col_right = st.columns([5, 1])
                 with top_col_right:
                     checkbox_key = f"read_checkbox_{title}"
-
-                    # Initialize checkbox state if not already set
                     if checkbox_key not in st.session_state:
                         st.session_state[checkbox_key] = title in st.session_state["home_read_sections"]
 
-                    # Render the checkbox
                     completed = st.checkbox("Mark as complete", key=checkbox_key, value=st.session_state[checkbox_key])
-
-                    # Sync read_sections with checkbox state
                     if completed:
                         st.session_state["home_read_sections"].add(title)
                     else:
