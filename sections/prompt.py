@@ -118,8 +118,6 @@ def render():
             with expander_section(title):
                 # Header with checkbox on the right
                 top_col_left, top_col_right = st.columns([5, 1])
-                with top_col_left:
-                    st.markdown(f"#### {title}")
                 with top_col_right:
                     checkbox_key = f"read_checkbox_{title}"
 
