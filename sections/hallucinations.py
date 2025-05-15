@@ -7,7 +7,7 @@ from utils.helpers import (
     reset_expand_collapse_triggers,
     reset_progress,
     save_progress,
-    load_progress,inject_custom_css
+    load_progress, inject_custom_css
 )
 
 PROGRESS_FILE = "progress.json"
@@ -52,14 +52,7 @@ def render():
             "- **Manually review before publishing externally:** Always treat LLM responses as **first drafts**.\n"
             "- **Encourage uncertainty when appropriate:** Ask the model to cite sources or include phrases like *“I’m not sure”* when unsure."
         ),
-        "Spot the Hallucination (Quiz)": (
-            "#### Quick Check: Can You Spot the Hallucination?\n\n"
-            "Which of the following is most likely a hallucination?\n\n"
-            "- Google was founded in 1998.\n"
-            "- Python was invented by Guido van Rossum.\n"
-            "- OpenAI was acquired by Netflix in 2021.\n\n"
-            "**Answer:** OpenAI was acquired by Netflix in 2021. That never happened — it’s a confident hallucination."
-        )
+        "Spot the Hallucination (Quiz)": None  # Placeholder for the quiz
     }
 
     # --- Sub-topic selector ---
@@ -97,7 +90,46 @@ def render():
                     else:
                         st.session_state["hallucination_read_sections"].discard(title)
 
-                st.markdown(content)
+                if title == "Spot the Hallucination (Quiz)":
+                    # Interactive Quiz
+                    st.markdown("#### Quick Check: Can You Spot the Hallucination?")
+                    
+                    q1 = st.radio("1. Which of the following is most likely a hallucination?", [
+                        "-- Select an answer --",
+                        "Google was founded in 1998.",
+                        "Python was invented by Guido van Rossum.",
+                        "OpenAI was acquired by Netflix in 2021."
+                    ])
+                    if q1 != "-- Select an answer --":
+                        if q1 == "OpenAI was acquired by Netflix in 2021.":
+                            st.success("Correct! That never happened — it’s a confident hallucination.")
+                        else:
+                            st.error("Incorrect. Try again.")
+
+                    q2 = st.radio("2. True or False: Language models always know the facts.", [
+                        "-- Select an answer --",
+                        "True",
+                        "False"
+                    ])
+                    if q2 != "-- Select an answer --":
+                        if q2 == "False":
+                            st.success("Correct! LLMs generate text based on patterns, not factual knowledge.")
+                        else:
+                            st.error("Incorrect. LLMs don’t always know the facts.")
+
+                    q3 = st.radio("3. Which strategy helps reduce hallucinations?", [
+                        "-- Select an answer --",
+                        "Use vague prompts",
+                        "Combine LLMs with retrieval-based methods",
+                        "Avoid reviewing outputs"
+                    ])
+                    if q3 != "-- Select an answer --":
+                        if q3 == "Combine LLMs with retrieval-based methods":
+                            st.success("Correct! Retrieval-based methods help ground LLMs in factual data.")
+                        else:
+                            st.error("Incorrect. Try again.")
+                else:
+                    st.markdown(content)
 
     # --- Progress tracking ---
     total_sections = len(halluc_sections)

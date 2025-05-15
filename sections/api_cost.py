@@ -7,7 +7,7 @@ from utils.helpers import (
     reset_expand_collapse_triggers,
     reset_progress,
     save_progress,
-    load_progress,inject_custom_css
+    load_progress, inject_custom_css
 )
 
 PROGRESS_FILE = "progress.json"
@@ -30,7 +30,8 @@ def render():
         "What Drives Cost",
         "Optimization Strategies",
         "Estimate Token Cost",
-        "Final Note"
+        "Final Note",
+        "Test Your Knowledge: API Costs"  # New quiz section
     }
 
     # --- Sub-topic selector ---
@@ -45,7 +46,6 @@ def render():
         )
 
     # --- Display sections with expanders ---
-
     for title in api_sections:
         if cost_subtopic == "All" or cost_subtopic == title:
             with expander_section(title):
@@ -152,6 +152,45 @@ def render():
                     Optimizing cost = longer runway + happier investors.
                     """)
 
+                elif title == "Test Your Knowledge: API Costs":
+                    # Interactive Quiz
+                    st.markdown("#### Quick Check: Test Your Knowledge on API Costs")
+
+                    q1 = st.radio("1. What is a token?", [
+                        "-- Select an answer --",
+                        "A single character",
+                        "A word or part of a word",
+                        "A sentence"
+                    ])
+                    if q1 != "-- Select an answer --":
+                        if q1 == "A word or part of a word":
+                            st.success("Correct! A token is typically 3–4 characters or about 1 word.")
+                        else:
+                            st.error("Incorrect. Try again.")
+
+                    q2 = st.radio("2. Which model is the most cost-effective?", [
+                        "-- Select an answer --",
+                        "GPT-3.5 Turbo",
+                        "GPT-4 Turbo",
+                        "GPT-4 (8K)"
+                    ])
+                    if q2 != "-- Select an answer --":
+                        if q2 == "GPT-3.5 Turbo":
+                            st.success("Correct! GPT-3.5 Turbo is the cheapest option.")
+                        else:
+                            st.error("Incorrect. Try again.")
+
+                    q3 = st.radio("3. What’s a good strategy to reduce API costs?", [
+                        "-- Select an answer --",
+                        "Use longer prompts",
+                        "Batch process requests",
+                        "Always use GPT-4"
+                    ])
+                    if q3 != "-- Select an answer --":
+                        if q3 == "Batch process requests":
+                            st.success("Correct! Batch processing reduces the number of API calls.")
+                        else:
+                            st.error("Incorrect. Try again.")
 
     # --- Reading Progress ---
     total = len(api_sections)
