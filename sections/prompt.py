@@ -7,7 +7,7 @@ from utils.helpers import (
     reset_expand_collapse_triggers,
     reset_progress,
     save_progress,
-    load_progress,inject_custom_css
+    load_progress, inject_custom_css
 )
 
 PROGRESS_FILE = "progress.json"
@@ -54,31 +54,30 @@ def render():
             "- **Instructional:** Direct commands like “Summarize this email in 3 lines.”\n"
             "- **Conversational:** Framed as a dialogue, e.g., “Hi! Can you help me explain this concept to a 10-year-old?”"
         ),
-        "Vague vs. Clear Examples": (
-            "#### Vague Prompt\n"
-            "- Describe our app\n"
-            "- Write something about our new feature\n\n"
-            "#### Clear Prompt\n"
-            "- Write a 3-sentence product description...\n"
-            "- Write a 2-sentence announcement..."
+        "Prompt Engineering vs Prompt Tuning": (
+            "While both involve improving how AI generates output, they differ significantly:\n\n"
+            "- **Prompt Engineering**  \n"
+            "  Uses well-crafted text prompts to control output. No training required. Fast and flexible.\n\n"
+            "- **Prompt Tuning (Advanced)**  \n"
+            "  Involves fine-tuning the model on a custom dataset. Requires ML knowledge, compute resources, and time.\n\n"
+            "_Prompt Engineering is ideal for startups needing quick results without deep ML expertise._"
         ),
-        "Prompt Best Practices": (
-            "Great prompts are clear, structured, and targeted.\n\n"
-            "#### Key Techniques\n"
-            "- **Be Clear & Specific:** Avoid vague instructions.\n"
-            "- **Use Delimiters:** Separate instructions from content with `\"\"\"` or `---`.\n"
-            "- **Step-by-Step Instructions:** Ask the model to \"explain step-by-step\" when needed.\n"
-            "- **Set a Role:** E.g., \"You are a technical recruiter.\"\n"
-            "- **Define Output Format:** Specify number of bullets, length, tone, etc.\n"
-            "- **Iterate:** Rerun and refine based on what works.\n\n"
-            "_Example Prompt:_  \n"
-            "> \"You are a SaaS marketer. Write a 2-sentence announcement for our AI onboarding tool, in a friendly tone.\""
+        "Startup Use Cases": (
+            "Prompt engineering can unlock huge value across startup functions:\n\n"
+            "- **Marketing:** Social media posts, taglines, blog intros\n"
+            "- **Customer Support:** Smart autoresponders, refund replies\n"
+            "- **Product & Dev:** Auto-generate feature descriptions, bug summaries\n"
+            "- **Branding:** Name generation, slogan ideas, elevator pitches"
         ),
-        "Common Pitfalls": (
-            "Even simple prompts can fail if they're poorly structured. Here are key mistakes to avoid:\n\n"
-            "- **Ambiguity:** “Tell me about our product” — too vague.\n"
-            "- **Overloading Instructions:** Don't cram 5 tasks into 1 prompt.\n"
-            "- **Missing Context:** Always provide enough background for the model to understand the task."
+        "Prompt Learning Resources": (
+            "Dive deeper into the art and science of prompting with these free resources:\n\n"
+            "- [OpenAI Cookbook – Prompting Guide](https://github.com/openai/openai-cookbook/blob/main/examples/How_to_format_inputs_to_ChatGPT_models.ipynb)\n"
+            "- [PromptHero (Community Examples)](https://prompthero.com/)\n"
+            "- [FlowGPT – Community Prompt Library](https://flowgpt.com/)\n"
+            "- [Full Guide to Prompt Engineering](https://www.promptingguide.ai/)"
+        ),
+        "Quiz": (
+            "Test your knowledge of prompt engineering with this interactive quiz!"
         )
     }
 
@@ -114,7 +113,44 @@ def render():
                     else:
                         st.session_state["read_sections"].discard(title)
 
-                st.markdown(content)
+                if title == "Quiz":
+                    # Interactive Quiz
+                    q1 = st.radio("1. What makes a good prompt?", [
+                        "-- Select an answer --",
+                        "Something short like 'Write something'",
+                        "Clear instructions with role, format, and topic",
+                        "Anything, the AI will figure it out"
+                    ])
+                    if q1 != "-- Select an answer --":
+                        if q1 == "Clear instructions with role, format, and topic":
+                            st.success("Correct!")
+                        else:
+                            st.error("Try again.")
+
+                    q2 = st.radio("2. Which is a strong ad prompt?", [
+                        "-- Select an answer --",
+                        "Write an ad",
+                        "Write a 2-line ad copy for a wearable fitness tracker targeting new moms in a friendly tone",
+                        "Make something catchy"
+                    ])
+                    if q2 != "-- Select an answer --":
+                        if "fitness tracker" in q2:
+                            st.success("Spot on!")
+                        else:
+                            st.error("Try again.")
+
+                    q3 = st.radio("3. True or False: AI always knows your intent.", [
+                        "-- Select an answer --",
+                        "True",
+                        "False"
+                    ])
+                    if q3 != "-- Select an answer --":
+                        if q3 == "False":
+                            st.success("Correct!")
+                        else:
+                            st.error("Incorrect.")
+                else:
+                    st.markdown(content)
 
     # --- Progress tracking ---
     total_sections = len(prompt_sections)

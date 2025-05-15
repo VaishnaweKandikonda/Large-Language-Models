@@ -1,9 +1,40 @@
 /* === GLOBAL FONT STYLING === */
 body, h1, h2, h3, h4, h5, h6, p, li, span, div, label, input, textarea, select, button {
-    font-family: 'Arial', sans-serif; /* Consistent font family */
-    font-size: 16px; /* Base font size */
-    line-height: 1.6; /* Improve readability */
-    color: #2c3e50; /* Dark gray-blue for text */
+    font-family: 'Arial', sans-serif !important; /* Consistent font family */
+    font-size: 16px !important; /* Base font size */
+    line-height: 1.6 !important; /* Improve readability */
+    color: #2c3e50 !important; /* Dark gray-blue for text */
+}
+
+/* === STREAMLIT MARKDOWN === */
+[data-testid="stMarkdownContainer"] {
+    font-family: 'Arial', sans-serif !important; /* Enforce consistent font family for markdown */
+    font-size: 16px !important; /* Enforce base font size for markdown */
+    line-height: 1.6 !important; /* Enforce readability for markdown */
+    color: #2c3e50 !important; /* Enforce text color for markdown */
+}
+
+/* === HEADINGS === */
+[data-testid="stMarkdownContainer"] h1,
+[data-testid="stMarkdownContainer"] h2,
+[data-testid="stMarkdownContainer"] h3,
+[data-testid="stMarkdownContainer"] h4,
+[data-testid="stMarkdownContainer"] h5,
+[data-testid="stMarkdownContainer"] h6 {
+    font-family: 'Arial', sans-serif !important; /* Ensure headers use the same font */
+    font-weight: bold !important; /* Make headers bold */
+    color: #2c3e50 !important; /* Dark gray-blue for headers */
+    margin-bottom: 0.5rem !important; /* Add spacing below headers */
+}
+
+/* === PARAGRAPHS === */
+[data-testid="stMarkdownContainer"] p,
+[data-testid="stMarkdownContainer"] li {
+    font-family: 'Arial', sans-serif !important; /* Ensure all text elements use the same font */
+    font-size: 16px !important; /* Base font size */
+    line-height: 1.6 !important; /* Improve readability */
+    color: #2c3e50 !important; /* Dark gray-blue for text */
+    margin-bottom: 1rem !important; /* Add spacing below paragraphs */
 }
 
 /* === SIDEBAR === */

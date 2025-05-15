@@ -48,20 +48,21 @@ def render():
     for title in api_sections:
         if cost_subtopic == "All" or cost_subtopic == title:
             with expander_section(title):
-                checkbox_key = f"read_checkbox_{title}"
+                with top_col_right:
+                    checkbox_key = f"read_checkbox_{title}"
 
-                # Initialize checkbox state if not already set
-                if checkbox_key not in st.session_state:
-                    st.session_state[checkbox_key] = title in st.session_state["api_cost_read_sections"]
+                    # Initialize checkbox state if not already set
+                    if checkbox_key not in st.session_state:
+                        st.session_state[checkbox_key] = title in st.session_state["api_cost_read_sections"]
 
-                # Render the checkbox
-                completed = st.checkbox("Mark as complete", key=checkbox_key, value=st.session_state[checkbox_key])
+                    # Render the checkbox
+                    completed = st.checkbox("Mark as complete", key=checkbox_key, value=st.session_state[checkbox_key])
 
-                # Sync read_sections with checkbox state
-                if completed:
-                    st.session_state["api_cost_read_sections"].add(title)
-                else:
-                    st.session_state["api_cost_read_sections"].discard(title)
+                    # Sync read_sections with checkbox state
+                    if completed:
+                        st.session_state["api_cost_read_sections"].add(title)
+                    else:
+                        st.session_state["api_cost_read_sections"].discard(title)
 
                 # Render content for each section
                 if title == "What Is API Cost?":
