@@ -8,6 +8,10 @@ from contextlib import contextmanager
 FEEDBACK_PATH = "feedback.csv"
 PROGRESS_FILE = "progress.json"
 
+def inject_custom_css():
+    with open("style.css") as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
 # -----------------------------------------------------------------------------
 # Session State Initialization
 # -----------------------------------------------------------------------------
@@ -97,12 +101,15 @@ FEEDBACK_PATH = "feedback.csv"
 def store_feedback(entry):
     """Store feedback entry into a CSV file."""
     if os.path.exists(FEEDBACK_PATH):
-        # Append to existing file
+        # Load existing feedback data
         df = pd.read_csv(FEEDBACK_PATH)
-        df = df.append(entry, ignore_index=True)
+        # Append the new entry using pd.concat
+        new_entry_df = pd.DataFrame([entry])
+        df = pd.concat([df, new_entry_df], ignore_index=True)
     else:
-        # Create a new file
+        # Create a new DataFrame for the entry
         df = pd.DataFrame([entry])
+    # Save the updated DataFrame to the CSV file
     df.to_csv(FEEDBACK_PATH, index=False)
 
 def load_feedback():

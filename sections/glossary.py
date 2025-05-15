@@ -1,5 +1,5 @@
 import streamlit as st
-from utils.helpers import display_expand_collapse_controls, expander_section
+from utils.helpers import display_expand_collapse_controls, expander_section,inject_custom_css
 from fpdf import FPDF
 
 def generate_glossary_pdf(glossary, output_path="LLM_Glossary.pdf"):
@@ -32,6 +32,7 @@ def generate_glossary_pdf(glossary, output_path="LLM_Glossary.pdf"):
     pdf.output(output_path)
 
 def render():
+    inject_custom_css()
     current_page = "Glossary"
     st.title("Glossary")
     display_expand_collapse_controls(current_page)

@@ -3,9 +3,10 @@ import pandas as pd
 import os
 import re
 from datetime import datetime
-from utils.helpers import display_expand_collapse_controls, reset_expansion_state, store_feedback, load_feedback
+from utils.helpers import display_expand_collapse_controls, reset_expansion_state, store_feedback, load_feedback,inject_custom_css
 
 def render():
+    inject_custom_css()
     current_page = "Feedback"
     st.title("📣 Share Your Experience")
     display_expand_collapse_controls(current_page)

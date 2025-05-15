@@ -1,8 +1,9 @@
 import streamlit as st
 from datetime import datetime
-from utils.helpers import display_expand_collapse_controls, expander_section
+from utils.helpers import display_expand_collapse_controls, expander_section,inject_custom_css
 
 def render():
+    inject_custom_css()
     current_page = "FAQs"
     st.title("Frequently Asked Questions")
     display_expand_collapse_controls(current_page)

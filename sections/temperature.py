@@ -7,12 +7,13 @@ from utils.helpers import (
     reset_expand_collapse_triggers,
     reset_progress,
     save_progress,
-    load_progress,
+    load_progress,inject_custom_css
 )
 
 PROGRESS_FILE = "progress.json"
 
 def render():
+    inject_custom_css() 
     current_page = "Temperature & Sampling"
     st.title("Temperature & Sampling")
     display_expand_collapse_controls(current_page)

@@ -8,12 +8,13 @@ from utils.helpers import (
     reset_expand_collapse_triggers,
     reset_progress,
     save_progress,
-    load_progress,
+    load_progress,inject_custom_css
 )
 
 PROGRESS_FILE = "progress.json"
 
 def render(): 
+    inject_custom_css() 
     current_page = "Home"
     st.markdown("<h1 style='text-align:center;'>Smart Startups. Smart AI.</h1>", unsafe_allow_html=True)
     display_expand_collapse_controls(current_page)
