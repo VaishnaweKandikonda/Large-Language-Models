@@ -119,6 +119,7 @@ def render():
     
     if st.button("Reset Progress"):
         reset_progress(home_sections, "home_read_sections")
+        st.experimental_rerun()
 
     # Display success message if reset was triggered
     if st.session_state.get("reset_triggered", False):
