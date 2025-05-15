@@ -75,3 +75,19 @@ def render():
 
     # --- Final Note ---
     st.markdown("Explore, test, and apply these terms as you build with LLMs in your startup.")
+    
+    # --- Footer ---
+    st.markdown("---")
+    st.markdown(
+        """
+        <div style='text-align: center; font-size: 14px; line-height: 1.6;'>
+            <strong>LLM Guide for Startups</strong> — Practical insights for using language models responsibly and efficiently in startup settings.<br>
+            Built with by:<br>
+            • <strong>Vaishnavi Kandikonda</strong> — <a href="mailto:vaishnavi.kandikonda@ucdconnect.com">vaishnavi.kandikonda@ucdconnect.com</a><br>
+            • <strong>Shivani Singh</strong> — <a href="mailto:shivani.singh@ucdconnect.ie">shivani.singh@ucdconnect.ie</a><br>
+            • <strong>Kushal Pratap Singh</strong> — <a href="mailto:kushal.singh@ucdconnect.ie">kushal.singh@ucdconnect.ie</a><br><br>
+            © 2025 LLM Startup Guide • Last updated {last_updated} • Built with Streamlit • Guided by principles of transparency, fairness, and human-centered AI.
+        </div>
+        """.format(last_updated=datetime.now().strftime("%Y-%m-%d")),
+        unsafe_allow_html=True
+    )
