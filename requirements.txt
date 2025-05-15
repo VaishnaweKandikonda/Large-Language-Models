@@ -1,0 +1,9 @@
+streamlit
+streamlit-option-menu
+pandas
+openai
+requests
+transformers
+sentencepiece
+email-validator  # For validating email addresses in feedback.py
+fpdf
