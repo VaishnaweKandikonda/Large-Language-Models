@@ -8,7 +8,7 @@ from utils.helpers import display_expand_collapse_controls, reset_expansion_stat
 def render():
     inject_custom_css()
     current_page = "Feedback"
-    st.title("📣 Share Your Experience")
+    st.title("Share Your Experience")
     display_expand_collapse_controls(current_page)
 
     st.markdown("""
@@ -58,7 +58,7 @@ def render():
                     st.session_state["feedback_entries"] = []
                 st.session_state["feedback_entries"].append(entry)
 
-                st.success(f"✅ Thank you, {name.strip()}! We truly appreciate your insights.")
+                st.success(f" Thank you, {name.strip()}! We truly appreciate your insights.")
 
     # --- Load feedback entries on first render ---
     if 'feedback_entries' not in st.session_state:
@@ -78,7 +78,7 @@ def render():
         st.info("No feedback submitted yet. Be the first to contribute!")
 
     # --- Admin Controls ---
-    with st.expander("🛠️ Admin Controls: Manage Feedback Records"):
+    with st.expander("Admin Controls: Manage Feedback Records"):
         st.markdown("Export or delete all feedback entries below.")
         admin_key_input = st.text_input("Admin Passphrase", type="password", placeholder="Enter passphrase")
         confirm_clear = st.checkbox("I confirm this action is irreversible.")
@@ -93,7 +93,7 @@ def render():
             st.download_button("📥 Download Feedback CSV", csv_data, file_name="feedback_backup.csv", mime="text/csv")
 
         # Clear feedback
-        if st.button("🗑️ Clear All Feedback"):
+        if st.button("Clear All Feedback"):
             if admin_key_input == ADMIN_PASSPHRASE and confirm_clear:
                 try:
                     if os.path.exists(FEEDBACK_PATH):
