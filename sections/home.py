@@ -16,7 +16,7 @@ PROGRESS_FILE = "progress.json"
 def render(): 
     inject_custom_css() 
     current_page = "Home"
-    st.markdown("<h1 style='text-align:center;'>Smart Startups. Smart AI.</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align:center; margin: 0;'>Smart Startups. Smart AI.</h1>", unsafe_allow_html=True)
     display_expand_collapse_controls(current_page)
 
     # --- Load progress from file ---
@@ -92,6 +92,8 @@ def render():
     # --- Sub-topic selector ---
     col_left, col_right = st.columns([1, 1])
     with col_right:
+        # Add a small gap between the label and the dropdown
+        st.markdown("<div style='margin: 0; font-weight: bold;'>Sub-topic</div>", unsafe_allow_html=True)
         default_index = 0  # "All" is the first item
         subtopic = st.selectbox("Sub-topic", ["All"] + list(home_sections.keys()), key="Sub-topic", index=default_index)
    
@@ -124,15 +126,16 @@ def render():
     read_sections = len(st.session_state["home_read_sections"])
     progress = int((read_sections / total_sections) * 100)
 
-    st.markdown("### Your Reading Progress")
+    st.markdown("### Your Reading Progress",unsafe_allow_html=True)
     st.progress(progress)
     st.caption(f"You’ve completed **{read_sections} of {total_sections}** sections ({progress}%)")
     
-    if st.button("Reset Progress"):
-        reset_progress(home_sections, "home_read_sections")
-
     # Save progress to file whenever it changes
-    save_progress("home_read_sections")
+    
+    if st.button("Reset Progress"):
+        save_progress("home_read_sections")
+        reset_progress(home_sections, "home_read_sections")
+    
     reset_expand_collapse_triggers()
     
     # --- Footer ---
