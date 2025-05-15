@@ -174,9 +174,14 @@ def render():
                     st.markdown(content)
 
     # --- Reading Progress ---
+
     total_sections = len(api_sections)
     completed = len(st.session_state["api_cost_read_sections"])
-    percent = int((completed / total) * 100)
+    percent = int((completed / total_sections) * 100)  # Fixed variable name
+
+    st.markdown("### Your Reading Progress")
+    st.progress(percent)
+    st.caption(f"You’ve completed **{completed} of {total_sections}** sections ({percent}%)")
 
     st.markdown("### Your Reading Progress")
     st.progress(percent)

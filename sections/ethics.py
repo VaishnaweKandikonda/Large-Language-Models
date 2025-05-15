@@ -146,22 +146,25 @@ def render():
                             st.write(f"**Final Risk Assessment:** {risk_level}")
 
                             # Create a downloadable file
-                            review_data = f"""
-                            Feature Name: {feature_name}
-                            Purpose: {purpose}
-                            Potential Risks: {risks}
-                            Bias Testing Completed: {bias_tested}
-                            Human Review In Place: {human_review}
-                            Disclosure to Users: {disclosure}
-                            Final Risk Assessment: {risk_level}
-                            """
-                            review_file = io.StringIO(review_data)
-                            st.download_button(
-                                label="📥 Download Review",
-                                data=review_file.getvalue(),
-                                file_name=f"{feature_name}_ethical_review.txt",
-                                mime="text/plain"
-                            )
+                            if feature_name.strip():  # Ensure the feature name is not empty
+                                review_data = f"""
+                                Feature Name: {feature_name}
+                                Purpose: {purpose}
+                                Potential Risks: {risks}
+                                Bias Testing Completed: {bias_tested}
+                                Human Review In Place: {human_review}
+                                Disclosure to Users: {disclosure}
+                                Final Risk Assessment: {risk_level}
+                                """
+                                review_file = io.StringIO(review_data)
+                                st.download_button(
+                                    label="📥 Download Review",
+                                    data=review_file.getvalue(),
+                                    file_name=f"{feature_name}_ethical_review.txt",
+                                    mime="text/plain"
+                                )
+                            else:
+                                st.warning("Please provide a valid feature name to enable the download.")
                 else:
                     st.markdown(content)
 
