@@ -1,29 +1,36 @@
+/* === GLOBAL RESET FOR PADDING AND MARGINS === */
+* {
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box;
+}
+
 /* === GLOBAL FONT STYLING === */
 body, h1, h2, h3, h4, h5, h6, p, li, span, div, label, input, textarea, select, button {
     font-family: 'Arial', sans-serif !important; /* Consistent font family */
     font-size: 16px !important; /* Base font size */
-    line-height: 1.6 !important; /* Improve readability */
+    line-height: 1.4 !important; /* Slightly tighter line height */
     color: #2c3e50 !important; /* Dark gray-blue for text */
 }
 
 /* === MAIN TITLE === */
 [data-testid="stAppViewContainer"] h1 {
     font-family: 'Arial', sans-serif !important; /* Consistent font family */
-    font-size: 2.5rem !important; /* Larger font size for main title */
+    font-size: 2.2rem !important; /* Slightly smaller font size */
     font-weight: bold !important; /* Bold font for emphasis */
     text-align: center !important; /* Center align the main title */
     color: #2c3e50 !important; /* Dark gray-blue for text */
-    margin-bottom: 1.5rem !important; /* Add spacing below the title */
+    margin-bottom: 1rem !important; /* Reduced spacing below the title */
 }
 
 /* === SUBTITLES === */
 [data-testid="stMarkdownContainer"] h2,
 [data-testid="stMarkdownContainer"] h3 {
     font-family: 'Arial', sans-serif !important; /* Consistent font family */
-    font-size: 1.8rem !important; /* Slightly smaller font size for subtitles */
+    font-size: 1.6rem !important; /* Slightly smaller font size for subtitles */
     font-weight: bold !important; /* Bold font for emphasis */
     color: #34495e !important; /* Slightly darker gray-blue for subtitles */
-    margin-bottom: 1rem !important; /* Add spacing below subtitles */
+    margin-bottom: 0.8rem !important; /* Reduced spacing below subtitles */
 }
 
 /* === PARAGRAPHS === */
@@ -31,31 +38,31 @@ body, h1, h2, h3, h4, h5, h6, p, li, span, div, label, input, textarea, select, 
 [data-testid="stMarkdownContainer"] li {
     font-family: 'Arial', sans-serif !important; /* Ensure all text elements use the same font */
     font-size: 16px !important; /* Base font size */
-    line-height: 1.6 !important; /* Improve readability */
+    line-height: 1.4 !important; /* Slightly tighter line height */
     color: #2c3e50 !important; /* Dark gray-blue for text */
-    margin-bottom: 1rem !important; /* Add spacing below paragraphs */
+    margin-bottom: 0.8rem !important; /* Reduced spacing below paragraphs */
 }
 
 /* === SIDEBAR === */
 [data-testid="stSidebar"] {
     background-color: #f4f7fc; /* Light blue-gray for a clean look */
     border-right: 1px solid #d1d9e6; /* Subtle border */
-    padding: 1rem;
+    padding: 0.8rem; /* Reduced padding */
 }
 [data-testid="stSidebar"] .css-1v3fvcr {
     font-weight: 600;
-    font-size: 1.1em;
+    font-size: 1em; /* Slightly smaller font size */
     color: #34495e; /* Dark gray-blue for text */
 }
 
 /* === NAVIGATION DROPDOWN === */
 .stSelectbox > div {
-    font-size: 1em;
+    font-size: 0.95em; /* Slightly smaller font size */
 }
 .stSelectbox label {
     font-weight: 600;
     color: #2c3e50; /* Darker gray-blue for labels */
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.3rem; /* Reduced margin */
 }
 
 /* === PAGE HEADER AREA === */
@@ -63,8 +70,8 @@ body, h1, h2, h3, h4, h5, h6, p, li, span, div, label, input, textarea, select, 
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 0.5rem;
-    margin-bottom: 1rem;
+    margin-top: 0.3rem; /* Reduced margin */
+    margin-bottom: 0.8rem; /* Reduced margin */
 }
 .page-header h1 {
     margin: 0;
@@ -80,20 +87,20 @@ body, h1, h2, h3, h4, h5, h6, p, li, span, div, label, input, textarea, select, 
 
 .tooltip .tooltiptext {
     visibility: hidden;
-    width: 140px;
+    width: 120px; /* Slightly smaller width */
     background-color: #34495e; /* Dark gray-blue for tooltip background */
     color: #ffffff; /* White text for contrast */
     text-align: center;
-    border-radius: 5px;
-    padding: 5px;
+    border-radius: 4px; /* Reduced border radius */
+    padding: 4px; /* Reduced padding */
     position: absolute;
     z-index: 1;
-    bottom: 125%; /* Position above the button */
+    bottom: 110%; /* Adjusted position */
     left: 50%;
-    margin-left: -70px;
+    margin-left: -60px;
     opacity: 0;
     transition: opacity 0.3s;
-    font-size: 0.85em;
+    font-size: 0.8em; /* Slightly smaller font size */
 }
 
 .tooltip:hover .tooltiptext {
@@ -104,12 +111,12 @@ body, h1, h2, h3, h4, h5, h6, p, li, span, div, label, input, textarea, select, 
 /* === EXPAND/COLLAPSE BUTTONS === */
 .expand-collapse-container {
     position: fixed;
-    top: 1.5rem;
-    right: 1.5rem;
+    top: 1rem; /* Reduced spacing */
+    right: 1rem; /* Reduced spacing */
     display: flex;
     flex-direction: column;
-    gap: 0.3rem;
-    font-size: 2rem;
+    gap: 0.2rem; /* Reduced gap */
+    font-size: 1.8rem; /* Slightly smaller font size */
     user-select: none;
     z-index: 1000;
 }
@@ -123,8 +130,8 @@ body, h1, h2, h3, h4, h5, h6, p, li, span, div, label, input, textarea, select, 
     padding: 0;
     margin: 0;
     line-height: 1;
-    width: 30px;
-    height: 30px;
+    width: 28px; /* Slightly smaller size */
+    height: 28px; /* Slightly smaller size */
 }
 
 .expand-collapse-btn:hover {
@@ -133,67 +140,67 @@ body, h1, h2, h3, h4, h5, h6, p, li, span, div, label, input, textarea, select, 
 
 /* === CARD / TILE STYLING === */
 .card {
-    padding: 1rem;
-    border-radius: 16px;
+    padding: 0.8rem; /* Reduced padding */
+    border-radius: 12px; /* Reduced border radius */
     background: #ffffff; /* White background for cards */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05); /* Subtler shadow */
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px); /* Subtler hover effect */
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.08); /* Subtler hover shadow */
 }
 
 /* === TAGS / BADGES === */
 .badge {
     display: inline-block;
-    padding: 0.3rem 0.7rem;
-    font-size: 0.85em;
+    padding: 0.2rem 0.5rem; /* Reduced padding */
+    font-size: 0.8em; /* Slightly smaller font size */
     color: #ffffff; /* White text for badges */
     background-color: #3498db; /* Bright blue for badges */
-    border-radius: 12px;
+    border-radius: 8px; /* Reduced border radius */
     font-weight: 500;
-    margin-right: 0.5rem;
+    margin-right: 0.3rem; /* Reduced margin */
 }
 
 /* === SECTION DIVIDER === */
 .divider {
     height: 1px;
     background-color: #d1d9e6; /* Subtle gray for dividers */
-    margin: 2rem 0;
+    margin: 1rem 0; /* Reduced margin */
 }
 
 /* === CODE BLOCKS === */
 code {
     background-color: #f4f7fc; /* Light blue-gray for code background */
     color: #e74c3c; /* Bright red for code text */
-    padding: 0.2rem 0.4rem;
-    border-radius: 6px;
+    padding: 0.1rem 0.3rem; /* Reduced padding */
+    border-radius: 4px; /* Reduced border radius */
     font-family: 'Courier New', monospace;
-    font-size: 0.95em;
+    font-size: 0.9em; /* Slightly smaller font size */
 }
 pre {
     background-color: #f4f7fc; /* Light blue-gray for preformatted text */
-    padding: 1rem;
-    border-radius: 8px;
+    padding: 0.5rem; /* Reduced padding */
+    border-radius: 6px; /* Reduced border radius */
     overflow-x: auto;
-    font-size: 0.95em;
+    font-size: 0.9em; /* Slightly smaller font size */
 }
 
 /* === SUCCESS / ERROR MESSAGES === */
 .success-box {
     background-color: #e8f8f5; /* Light teal for success background */
     color: #1abc9c; /* Bright teal for success text */
-    padding: 0.8rem;
-    border-left: 5px solid #1abc9c;
-    border-radius: 8px;
-    margin-bottom: 1rem;
+    padding: 0.5rem; /* Reduced padding */
+    border-left: 3px solid #1abc9c; /* Slightly thinner border */
+    border-radius: 6px; /* Reduced border radius */
+    margin-bottom: 0.5rem; /* Reduced margin */
 }
 .error-box {
     background-color: #fdecea; /* Light red for error background */
     color: #e74c3c; /* Bright red for error text */
-    padding: 0.8rem;
-    border-left: 5px solid #e74c3c;
-    border-radius: 8px;
-    margin-bottom: 1rem;
+    padding: 0.5rem; /* Reduced padding */
+    border-left: 3px solid #e74c3c; /* Slightly thinner border */
+    border-radius: 6px; /* Reduced border radius */
+    margin-bottom: 0.5rem; /* Reduced margin */
 }
