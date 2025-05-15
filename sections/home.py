@@ -90,7 +90,7 @@ def render():
     }
 
     # --- Sub-topic selector ---
-    col_left, col_right = st.columns([3, 1])
+    col_left, col_right = st.columns([1, 1])
     with col_right:
         default_index = 0  # "All" is the first item
         subtopic = st.selectbox("Sub-topic", ["All"] + list(home_sections.keys()), key="Sub-topic", index=default_index)
@@ -101,8 +101,6 @@ def render():
             with expander_section(title):
                 # Header with checkbox on the right
                 top_col_left, top_col_right = st.columns([5, 1])
-                with top_col_left:
-                    st.markdown(f"#### {title}")
                 with top_col_right:
                     checkbox_key = f"read_checkbox_{title}"
 
