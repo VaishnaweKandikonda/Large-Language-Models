@@ -63,14 +63,7 @@ def render():
             "**Model Output:** “We're looking for a strong, young male developer to join our elite dev team.”\n\n"
             "**Reflection:** Are assumptions being made? Who is stereotyped or excluded?"
         ),
-        "Bias Reflection Quiz": (
-            "#### Try This\n\n"
-            "Which of these might reflect bias?\n\n"
-            "- Write a bio for a doctor: 'Dr. Smith is a brilliant young man...'\n"
-            "- Summarize a product spec for a software tool\n"
-            "- Generate a welcome message for a task management app\n\n"
-            "**Answer:** The first option assumes gender and age, which may reflect bias."
-        ),
+        "Bias Reflection Quiz": None,  # Placeholder for the interactive quiz
         "Ethical Review Template": None  # Placeholder for the Ethical Review Template
     }
 
@@ -117,6 +110,26 @@ def render():
                         - Prevents future reputational or legal risk
                         - Encourages intentional, responsible design decisions
                         """)
+                elif title == "Bias Reflection Quiz":
+                    # Interactive Bias Reflection Quiz
+                    st.markdown("#### Try This Quiz")
+                    st.write("Which of these might reflect bias?")
+
+                    # Define quiz options
+                    options = [
+                        "Write a bio for a doctor: 'Dr. Smith is a brilliant young man...'",
+                        "Summarize a product spec for a software tool",
+                        "Generate a welcome message for a task management app"
+                    ]
+
+                    # Add a radio button for the quiz
+                    selected_option = st.radio("Select the option you think reflects bias:", options, key="bias_quiz")
+
+                    # Provide feedback based on the user's selection
+                    if selected_option == options[0]:
+                        st.success("Correct! The first option assumes gender and age, which may reflect bias.")
+                    elif selected_option in options[1:]:
+                        st.error("Not quite. The first option reflects bias due to assumptions about gender and age.")
                 else:
                     # Display content for other sections
                     col1, col2 = st.columns([5, 1])
