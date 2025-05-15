@@ -117,6 +117,7 @@ def render():
 
                     # Define quiz options
                     options = [
+                        "-- Select an answer --",
                         "Write a bio for a doctor: 'Dr. Smith is a brilliant young man...'",
                         "Summarize a product spec for a software tool",
                         "Generate a welcome message for a task management app"
