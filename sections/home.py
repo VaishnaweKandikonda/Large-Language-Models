@@ -8,7 +8,7 @@ from utils.helpers import (
     reset_expand_collapse_triggers,
     reset_progress,
     save_progress,
-    load_progress,inject_custom_css
+    load_progress, inject_custom_css
 )
 
 PROGRESS_FILE = "progress.json"
@@ -20,9 +20,9 @@ def render():
     display_expand_collapse_controls(current_page)
 
     # --- Load progress from file ---
-    if "read_sections" not in st.session_state:
+    if "home_read_sections" not in st.session_state:
         progress_data = load_progress()
-        st.session_state["read_sections"] = set(progress_data.get("read_sections", []))
+        st.session_state["home_read_sections"] = set(progress_data.get("home_read_sections", []))
         
     # --- Define Home page sections ---
     home_sections = {
@@ -110,22 +110,22 @@ def render():
 
                     # Initialize checkbox state if not already set
                     if checkbox_key not in st.session_state:
-                        st.session_state[checkbox_key] = title in st.session_state["read_sections"]
+                        st.session_state[checkbox_key] = title in st.session_state["home_read_sections"]
 
                     # Render the checkbox
                     completed = st.checkbox("Mark as complete", key=checkbox_key, value=st.session_state[checkbox_key])
 
                     # Sync read_sections with checkbox state
                     if completed:
-                        st.session_state["read_sections"].add(title)
+                        st.session_state["home_read_sections"].add(title)
                     else:
-                        st.session_state["read_sections"].discard(title)
+                        st.session_state["home_read_sections"].discard(title)
 
                 st.markdown(content)
 
     # --- Progress tracking ---
     total_sections = len(home_sections)
-    read_sections = len(st.session_state["read_sections"])
+    read_sections = len(st.session_state["home_read_sections"])
     progress = int((read_sections / total_sections) * 100)
 
     st.markdown("### Your Reading Progress")
@@ -133,10 +133,10 @@ def render():
     st.caption(f"You’ve completed **{read_sections} of {total_sections}** sections ({progress}%)")
     
     if st.button("Reset Progress"):
-        reset_progress(home_sections)
+        reset_progress(home_sections, "home_read_sections")
 
     # Save progress to file whenever it changes
-    save_progress()
+    save_progress("home_read_sections")
     reset_expand_collapse_triggers()
     
     # --- Footer ---

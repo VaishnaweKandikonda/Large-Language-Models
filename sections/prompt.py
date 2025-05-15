@@ -19,9 +19,9 @@ def render():
     display_expand_collapse_controls(current_page)
 
     # --- Load progress from file ---
-    if "read_sections" not in st.session_state:
+    if "prompt_read_sections" not in st.session_state:
         progress_data = load_progress()
-        st.session_state["read_sections"] = set(progress_data.get("read_sections", []))
+        st.session_state["prompt_read_sections"] = set(progress_data.get("prompt_read_sections", []))
 
     # --- Define sections for progress tracking ---
     prompt_sections = {
@@ -112,8 +112,7 @@ def render():
     with col_left:
         st.markdown("### Explore Key Sections")
     with col_right:
-        default_index = 0  # "All" is the first item
-        subtopic = st.selectbox("Sub-topic", ["All"] + list(prompt_sections.keys()), key="Sub-topic", index=default_index)
+        subtopic = st.selectbox("Sub-topic", ["All"] + list(prompt_sections.keys()), key="prompt_subtopic")
 
     # --- Display sections with expanders ---
     for title, content in prompt_sections.items():
@@ -128,16 +127,16 @@ def render():
 
                     # Initialize checkbox state if not already set
                     if checkbox_key not in st.session_state:
-                        st.session_state[checkbox_key] = title in st.session_state["read_sections"]
+                        st.session_state[checkbox_key] = title in st.session_state["prompt_read_sections"]
 
                     # Render the checkbox
                     completed = st.checkbox("Mark as complete", key=checkbox_key, value=st.session_state[checkbox_key])
 
                     # Sync read_sections with checkbox state
                     if completed:
-                        st.session_state["read_sections"].add(title)
+                        st.session_state["prompt_read_sections"].add(title)
                     else:
-                        st.session_state["read_sections"].discard(title)
+                        st.session_state["prompt_read_sections"].discard(title)
 
                 if title == "Quiz":
                     # Interactive Quiz
@@ -180,7 +179,7 @@ def render():
 
     # --- Progress tracking ---
     total_sections = len(prompt_sections)
-    read_sections = len(st.session_state["read_sections"])
+    read_sections = len(st.session_state["prompt_read_sections"])
     progress = int((read_sections / total_sections) * 100)
 
     st.markdown("### Your Reading Progress")
@@ -188,10 +187,10 @@ def render():
     st.caption(f"You’ve completed **{read_sections} of {total_sections}** sections ({progress}%)")
     
     if st.button("Reset Progress"):
-        reset_progress(prompt_sections)
+        reset_progress(prompt_sections, "prompt_read_sections")
 
     # Save progress to file whenever it changes
-    save_progress()
+    save_progress("prompt_read_sections")
     reset_expand_collapse_triggers()
 
     # --- Footer ---

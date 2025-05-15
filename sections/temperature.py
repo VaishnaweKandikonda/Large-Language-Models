@@ -18,7 +18,7 @@ def render():
     st.title("Temperature & Sampling")
     display_expand_collapse_controls(current_page)
 
-   # --- Load progress from file ---
+    # --- Load progress from file ---
     if "temperature_read_sections" not in st.session_state:
         progress_data = load_progress()
         st.session_state["temperature_read_sections"] = set(progress_data.get("temperature_read_sections", []))
@@ -136,10 +136,10 @@ def render():
     st.caption(f"You’ve completed **{read_sections} of {total_sections}** sections ({progress}%)")
     
     if st.button("Reset Progress"):
-        reset_progress(temperature_sections)
+        reset_progress(temperature_sections, "temperature_read_sections")
 
     # Save progress to file whenever it changes
-    save_progress()
+    save_progress("temperature_read_sections")
     reset_expand_collapse_triggers()
 
     # --- Footer ---
