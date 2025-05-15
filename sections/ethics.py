@@ -85,11 +85,11 @@ def render():
             key="ethics_subtopic"
         )
 
-    # --- Display sections with expanders ---
     for title, content in ethics_sections.items():
         if ethics_subtopic == "All" or ethics_subtopic == title:
             with expander_section(title):
                 if title == "Ethical Review Template":
+                    # Logic for the Ethical Review Template
                     st.markdown("### What Is This Template?")
                     st.write("""
                     This is a structured form to help startup teams evaluate whether an AI-powered feature is being designed and used ethically and responsibly.
@@ -167,8 +167,9 @@ def render():
                                 )
                             else:
                                 st.warning("Please provide a valid feature name to enable the download.")
-        else:
-            st.markdown(content)
+                else:
+                    # Display content for other sections
+                    st.markdown(content)
 
     # --- Progress tracking ---
     total_sections = len(ethics_sections)
