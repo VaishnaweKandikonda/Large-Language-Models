@@ -54,6 +54,32 @@ def render():
             "- **Instructional:** Direct commands like “Summarize this email in 3 lines.”\n"
             "- **Conversational:** Framed as a dialogue, e.g., “Hi! Can you help me explain this concept to a 10-year-old?”"
         ),
+        "Vague vs. Clear Examples": (
+            "#### Vague Prompt\n"
+            "- Describe our app\n"
+            "- Write something about our new feature\n\n"
+            "#### Clear Prompt\n"
+            "- Write a 3-sentence product description...\n"
+            "- Write a 2-sentence announcement..."
+        ),
+        "Prompt Best Practices": (
+            "Great prompts are clear, structured, and targeted.\n\n"
+            "#### Key Techniques\n"
+            "- **Be Clear & Specific:** Avoid vague instructions.\n"
+            "- **Use Delimiters:** Separate instructions from content with `\"\"\"` or `---`.\n"
+            "- **Step-by-Step Instructions:** Ask the model to \"explain step-by-step\" when needed.\n"
+            "- **Set a Role:** E.g., \"You are a technical recruiter.\"\n"
+            "- **Define Output Format:** Specify number of bullets, length, tone, etc.\n"
+            "- **Iterate:** Rerun and refine based on what works.\n\n"
+            "_Example Prompt:_  \n"
+            "> \"You are a SaaS marketer. Write a 2-sentence announcement for our AI onboarding tool, in a friendly tone.\""
+        ),
+        "Common Pitfalls": (
+            "Even simple prompts can fail if they're poorly structured. Here are key mistakes to avoid:\n\n"
+            "- **Ambiguity:** “Tell me about our product” — too vague.\n"
+            "- **Overloading Instructions:** Don't cram 5 tasks into 1 prompt.\n"
+            "- **Missing Context:** Always provide enough background for the model to understand the task."
+        ),
         "Prompt Engineering vs Prompt Tuning": (
             "While both involve improving how AI generates output, they differ significantly:\n\n"
             "- **Prompt Engineering**  \n"
