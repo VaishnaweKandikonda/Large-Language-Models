@@ -110,9 +110,9 @@ body, h1, h2, h3, h4, h5, h6, p, li, span, div, label, input, textarea, select, 
 }
 
 .expand-collapse-btn {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center the content horizontally */
+    align-items: center; /* Center the content vertically */
     width: 50px; /* Set a fixed width for consistency */
     height: 50px; /* Set a fixed height for consistency */
     font-size: 1.5rem; /* Adjust font size for better visibility */
@@ -123,6 +123,7 @@ body, h1, h2, h3, h4, h5, h6, p, li, span, div, label, input, textarea, select, 
     border-radius: 50%; /* Make the buttons circular */
     cursor: pointer; /* Pointer cursor for interactivity */
     transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
 }
 
 .expand-collapse-btn:hover {
@@ -135,101 +136,36 @@ body, h1, h2, h3, h4, h5, h6, p, li, span, div, label, input, textarea, select, 
     transform: scale(1); /* Reset scale on click */
 }
 
-/* === CARD / TILE STYLING === */
-.card {
-    padding: 0.8rem; /* Reduced padding */
-    border-radius: 12px; /* Reduced border radius */
-    background: #ffffff; /* White background for cards */
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05); /* Subtler shadow */
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.card:hover {
-    transform: translateY(-2px); /* Subtler hover effect */
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.08); /* Subtler hover shadow */
-}
-
-/* === TAGS / BADGES === */
-.badge {
-    display: inline-block;
-    padding: 0.2rem 0.5rem; /* Reduced padding */
-    font-size: 0.8em; /* Slightly smaller font size */
-    color: #ffffff; /* White text for badges */
-    background-color: #3498db; /* Bright blue for badges */
-    border-radius: 8px; /* Reduced border radius */
-    font-weight: 500;
-    margin-right: 0.3rem; /* Reduced margin */
-}
-
-/* === SECTION DIVIDER === */
-.divider {
-    height: 1px;
-    background-color: #d1d9e6; /* Subtle gray for dividers */
-    margin: 1rem 0; /* Reduced margin */
-}
-
-/* === CODE BLOCKS === */
-code {
-    background-color: #f4f7fc; /* Light blue-gray for code background */
-    color: #e74c3c; /* Bright red for code text */
-    padding: 0.1rem 0.3rem; /* Reduced padding */
-    border-radius: 4px; /* Reduced border radius */
-    font-family: 'Courier New', monospace;
-    font-size: 0.9em; /* Slightly smaller font size */
-}
-pre {
-    background-color: #f4f7fc; /* Light blue-gray for preformatted text */
-    padding: 0.5rem; /* Reduced padding */
-    border-radius: 6px; /* Reduced border radius */
-    overflow-x: auto;
-    font-size: 0.9em; /* Slightly smaller font size */
-}
-
-/* === SUCCESS / ERROR MESSAGES === */
-.success-box {
-    background-color: #e8f8f5; /* Light teal for success background */
-    color: #1abc9c; /* Bright teal for success text */
-    padding: 0.5rem; /* Reduced padding */
-    border-left: 3px solid #1abc9c; /* Slightly thinner border */
-    border-radius: 6px; /* Reduced border radius */
-    margin-bottom: 0.5rem; /* Reduced margin */
-}
-.error-box {
-    background-color: #fdecea; /* Light red for error background */
-    color: #e74c3c; /* Bright red for error text */
-    padding: 0.5rem; /* Reduced padding */
-    border-left: 3px solid #e74c3c; /* Slightly thinner border */
-    border-radius: 6px; /* Reduced border radius */
-    margin-bottom: 0.5rem; /* Reduced margin */
-}
-
-/* === BUTTON STYLING === */
-.button {
-    display: inline-flex; /* Use flexbox for centering */
+/* === RESET PROGRESS BUTTON === */
+.reset-progress-btn {
+    display: flex; /* Use flexbox for centering */
     justify-content: center; /* Center text horizontally */
     align-items: center; /* Center text vertically */
     padding: 0.6rem 1.2rem; /* Adjust padding for a balanced look */
     font-size: 1rem; /* Base font size for buttons */
     font-weight: 600; /* Slightly bold text */
     color: #ffffff; /* White text for contrast */
-    background-color: #3498db; /* Bright blue background */
+    background-color: #e74c3c; /* Bright red background */
     border: none; /* Remove default border */
     border-radius: 8px; /* Rounded corners for a modern look */
     cursor: pointer; /* Pointer cursor for interactivity */
     transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
     text-align: center; /* Ensure text alignment */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
+    margin-top: 1rem; /* Add spacing above the button */
 }
 
-.button:hover {
-    background-color: #1abc9c; /* Bright teal for hover effect */
+.reset-progress-btn:hover {
+    background-color: #c0392b; /* Darker red for hover effect */
     transform: translateY(-2px); /* Subtle lift on hover */
 }
 
-.button:active {
-    background-color: #2980b9; /* Slightly darker blue for active state */
+.reset-progress-btn:active {
+    background-color: #a93226; /* Even darker red for active state */
     transform: translateY(0); /* Reset lift on click */
 }
 
-.button:disabled {
+.reset-progress-btn:disabled {
     background-color: #bdc3c7; /* Gray for disabled state */
     cursor: not-allowed; /* Indicate non-interactivity */
     opacity: 0.7; /* Slightly faded look */
