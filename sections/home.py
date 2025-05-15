@@ -94,12 +94,9 @@ def render():
     # Display sections with expanders
     for title, content in home_sections.items():
         if subtopic == "All" or subtopic == title:
-            with expander_section(""):
-                # Create columns for title and checkbox
-                title_col, checkbox_col = st.columns([5, 1])
-                with title_col:
-                    st.markdown(f"### {title}")  # Display the section title
-                with checkbox_col:
+            with expander_section(title):
+                top_col_left, top_col_right = st.columns([5, 1])
+                with top_col_right:
                     checkbox_key = f"read_checkbox_{title}"
                     if checkbox_key not in st.session_state:
                         st.session_state[checkbox_key] = title in st.session_state["home_read_sections"]
@@ -110,7 +107,6 @@ def render():
                     else:
                         st.session_state["home_read_sections"].discard(title)
 
-                # Display the section content
                 st.markdown(content)
 
     # --- Progress tracking ---
