@@ -96,7 +96,6 @@ def render():
         if subtopic == "All" or subtopic == title:
             with expander_section(title):
                 top_col_left, top_col_right = st.columns([5, 1])
-                st.markdown(content)
                 with top_col_right:
                     checkbox_key = f"read_checkbox_{title}"
                     if checkbox_key not in st.session_state:
@@ -107,7 +106,7 @@ def render():
                         st.session_state["home_read_sections"].add(title)
                     else:
                         st.session_state["home_read_sections"].discard(title)
-
+                st.markdown(content)
 
     # --- Progress tracking ---
     total_sections = len(home_sections)
