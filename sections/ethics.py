@@ -127,9 +127,9 @@ def render():
                     selected_option = st.radio("Select the option you think reflects bias:", options, key="bias_quiz")
 
                     # Provide feedback based on the user's selection
-                    if selected_option == options[0]:
+                    if selected_option == options[1]:
                         st.success("Correct! The first option assumes gender and age, which may reflect bias.")
-                    elif selected_option in options[1:]:
+                    elif selected_option in options[2:]:
                         st.error("Not quite. The first option reflects bias due to assumptions about gender and age.")
                 else:
                     # Display content for other sections
