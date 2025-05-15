@@ -167,8 +167,8 @@ def render():
                                 )
                             else:
                                 st.warning("Please provide a valid feature name to enable the download.")
-                        else:
-                            st.markdown(content)
+                else:
+                    st.markdown(content)
 
     # --- Progress tracking ---
     total_sections = len(ethics_sections)
