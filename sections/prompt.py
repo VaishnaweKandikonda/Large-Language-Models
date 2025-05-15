@@ -109,6 +109,8 @@ def render():
 
     # --- Sub-topic selector ---
     col_left, col_right = st.columns([3, 1])
+    with col_left:
+        st.markdown("### Explore Prompt Engineering Concepts")
     with col_right:
         subtopic = st.selectbox("Sub-topic", ["All"] + list(prompt_sections.keys()), key="prompt_subtopic")
 

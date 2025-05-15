@@ -87,6 +87,8 @@ def render():
     }
     # Sub-topic selector
     col_left, col_right = st.columns([3, 1])
+    with col_left:
+        st.markdown("### Explore Large Language Models Concepts")
     with col_right:
         default_index = 0  # "All" is the first item
         subtopic = st.selectbox("Sub-topic", ["All"] + list(home_sections.keys()), key="Sub-topic", index=default_index)
