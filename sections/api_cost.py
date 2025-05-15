@@ -60,14 +60,6 @@ def render():
             "Estimate how much your startup might spend based on usage.\n\n"
             "Use the sliders below to calculate daily and monthly costs based on your API usage."
         ),
-        "Final Note": (
-            "API costs are invisible until they scale — and then they scale fast.\n\n"
-            "Be proactive:\n"
-            "- Track usage\n"
-            "- Test models before deploying\n"
-            "- ✅ Fine-tune or retrieve where appropriate\n\n"
-            "Optimizing cost = longer runway + happier investors."
-        ),
         "Test Your Knowledge: API Costs": None  # Placeholder for the quiz
     }
 
@@ -88,8 +80,6 @@ def render():
             with expander_section(title):
                 # Header with checkbox on the right
                 top_col_left, top_col_right = st.columns([5, 1])
-                with top_col_left:
-                    st.markdown(f"#### {title}")
                 with top_col_right:
                     checkbox_key = f"read_checkbox_{title}"
 
