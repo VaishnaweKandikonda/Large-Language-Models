@@ -19,19 +19,56 @@ def render():
     display_expand_collapse_controls(current_page)
 
     # --- Load progress from file ---
-    if "read_sections" not in st.session_state:
+    if "api_cost_read_sections" not in st.session_state:
         progress_data = load_progress()
-        st.session_state["read_sections"] = set(progress_data.get("read_sections", []))
+        st.session_state["api_cost_read_sections"] = set(progress_data.get("api_cost_read_sections", []))
         
     # --- Define sections for progress tracking ---
     api_sections = {
-        "What Is API Cost?",
-        "Why API Costs Matter",
-        "What Drives Cost",
-        "Optimization Strategies",
-        "Estimate Token Cost",
-        "Final Note",
-        "Test Your Knowledge: API Costs"  # New quiz section
+        "What Is API Cost?": (
+            "When you use a language model like GPT-3.5 or GPT-4 through an API, you’re charged based on how many tokens you send and receive.\n\n"
+            "A **token** is typically 3–4 characters or about 1 word. You are billed for both the prompt you send and the response the model generates.\n\n"
+            "Different models have different pricing structures:\n\n"
+            "| Model         | Input (per 1K tokens) | Output (per 1K tokens) |\n"
+            "|---------------|-----------------------|------------------------|\n"
+            "| GPT-3.5 Turbo | $0.0015               | $0.002                 |\n"
+            "| GPT-4 Turbo   | $0.01                 | $0.03                  |\n"
+            "| GPT-4 (8K)    | $0.03                 | $0.06                  |"
+        ),
+        "Why API Costs Matter": (
+            "Using large language models can get expensive quickly — especially if your product sends long prompts or handles frequent requests.\n\n"
+            "For example:\n"
+            "- Daily chat summaries for users\n"
+            "- Auto-generating blog content\n"
+            "- AI customer support\n\n"
+            "Managing cost ensures your startup scales **sustainably**."
+        ),
+        "What Drives Cost": (
+            "- **Token usage** – You pay per word/token (input + output combined).\n"
+            "- **Model selection** – GPT-4 is significantly more expensive than GPT-3.5.\n"
+            "- **Request frequency** – High-volume traffic means higher cost.\n"
+            "- **Prompt design** – Long prompts or unnecessary verbosity waste tokens."
+        ),
+        "Optimization Strategies": (
+            "1. **Shorten prompts**: Cut boilerplate or redundant phrasing.\n"
+            "2. **Use cheaper models**: GPT-3.5 for summaries, formatting, etc.\n"
+            "3. **Cache outputs**: Reuse LLM responses for repeated queries.\n"
+            "4. **Batch processing**: Combine inputs in a single request.\n"
+            "5. **Analyze usage logs**: Monitor which calls are most expensive."
+        ),
+        "Estimate Token Cost": (
+            "Estimate how much your startup might spend based on usage.\n\n"
+            "Use the sliders below to calculate daily and monthly costs based on your API usage."
+        ),
+        "Final Note": (
+            "API costs are invisible until they scale — and then they scale fast.\n\n"
+            "Be proactive:\n"
+            "- Track usage\n"
+            "- Test models before deploying\n"
+            "- ✅ Fine-tune or retrieve where appropriate\n\n"
+            "Optimizing cost = longer runway + happier investors."
+        ),
+        "Test Your Knowledge: API Costs": None  # Placeholder for the quiz
     }
 
     # --- Sub-topic selector ---
@@ -41,17 +78,18 @@ def render():
     with col_right:
         cost_subtopic = st.selectbox(
             "Sub-topic",
-            ["All"] + list(api_sections),
+            ["All"] + list(api_sections.keys()),
             key="api_cost_subtopic"
         )
 
     # --- Display sections with expanders ---
-    for title in api_sections:
+    for title, content in api_sections.items():
         if cost_subtopic == "All" or cost_subtopic == title:
             with expander_section(title):
-                # Define two columns for layout
+                # Header with checkbox on the right
                 top_col_left, top_col_right = st.columns([5, 1])
-
+                with top_col_left:
+                    st.markdown(f"#### {title}")
                 with top_col_right:
                     checkbox_key = f"read_checkbox_{title}"
 
@@ -68,55 +106,7 @@ def render():
                     else:
                         st.session_state["api_cost_read_sections"].discard(title)
 
-                # Render content for each section
-                if title == "What Is API Cost?":
-                    st.write("""
-                    When you use a language model like GPT-3.5 or GPT-4 through an API, you’re charged based on how many tokens you send and receive.
-
-                    A **token** is typically 3–4 characters or about 1 word. You are billed for both the prompt you send and the response the model generates.
-
-                    Different models have different pricing structures:
-                    """)
-                    st.markdown("""
-                    | Model         | Input (per 1K tokens) | Output (per 1K tokens) |
-                    |---------------|-----------------------|------------------------|
-                    | GPT-3.5 Turbo | $0.0015               | $0.002                 |
-                    | GPT-4 Turbo   | $0.01                 | $0.03                  |
-                    | GPT-4 (8K)    | $0.03                 | $0.06                  |
-                    """)
-
-                elif title == "Why API Costs Matter":
-                    st.write("""
-                    Using large language models can get expensive quickly — especially if your product sends long prompts or handles frequent requests.
-
-                    For example:
-                    - Daily chat summaries for users
-                    - Auto-generating blog content
-                    - AI customer support
-
-                    Managing cost ensures your startup scales **sustainably**.
-                    """)
-
-                elif title == "What Drives Cost":
-                    st.markdown("""
-                    - **Token usage** – You pay per word/token (input + output combined).  
-                    - **Model selection** – GPT-4 is significantly more expensive than GPT-3.5.  
-                    - **Request frequency** – High-volume traffic means higher cost.  
-                    - **Prompt design** – Long prompts or unnecessary verbosity waste tokens.  
-                    """)
-
-                elif title == "Optimization Strategies":
-                    st.markdown("""
-                    1. **Shorten prompts**: Cut boilerplate or redundant phrasing.  
-                    2. **Use cheaper models**: GPT-3.5 for summaries, formatting, etc.  
-                    3. **Cache outputs**: Reuse LLM responses for repeated queries.  
-                    4. **Batch processing**: Combine inputs in a single request.  
-                    5. **Analyze usage logs**: Monitor which calls are most expensive.  
-                    """)
-
-                elif title == "Estimate Token Cost":
-                    st.markdown("Estimate how much your startup might spend based on usage.")
-
+                if title == "Estimate Token Cost":
                     model_choice = st.selectbox(
                         "Choose your model",
                         ["GPT-3.5 Turbo", "GPT-4 Turbo", "GPT-4 (8K)"]
@@ -139,18 +129,6 @@ def render():
 
                     st.info(f"**Estimated Daily Cost:** ${daily_cost:,.2f}")
                     st.success(f"**Estimated Monthly Cost:** ${monthly_cost:,.2f}")
-
-                elif title == "Final Note":
-                    st.markdown("""
-                    API costs are invisible until they scale — and then they scale fast.
-
-                    Be proactive:  
-                    ✅ Track usage  
-                    ✅ Test models before deploying  
-                    ✅ Fine-tune or retrieve where appropriate
-
-                    Optimizing cost = longer runway + happier investors.
-                    """)
 
                 elif title == "Test Your Knowledge: API Costs":
                     # Interactive Quiz
@@ -192,8 +170,11 @@ def render():
                         else:
                             st.error("Incorrect. Try again.")
 
+                else:
+                    st.markdown(content)
+
     # --- Reading Progress ---
-    total = len(api_sections)
+    total_sections = len(api_sections)
     completed = len(st.session_state["api_cost_read_sections"])
     percent = int((completed / total) * 100)
 
@@ -203,10 +184,10 @@ def render():
 
     # --- Reset Progress Button ---
     if st.button("Reset Progress"):
-        reset_progress(api_sections)
+        reset_progress(api_sections, "api_cost_read_sections")
 
     # Save progress to file whenever it changes
-    save_progress()
+    save_progress("api_cost_read_sections")
     reset_expand_collapse_triggers()
 
     # --- Footer ---

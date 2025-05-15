@@ -157,10 +157,7 @@ def reset_progress(sections, page_key):
     st.session_state[page_key] = set()
 
     # Save progress to file
-    save_progress()
+    save_progress(page_key)
 
     # Notify the user
     st.success("Progress reset! All checkboxes have been cleared.")
-    st.rerun()
-    
-    

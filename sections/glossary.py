@@ -10,21 +10,20 @@ def generate_glossary_pdf(glossary, output_path="LLM_Glossary.pdf"):
     pdf.set_auto_page_break(auto=True, margin=15)
     pdf.add_page()
 
-    # Use a Unicode-compatible font (e.g., DejaVuSans)
-    pdf.add_font("DejaVu", "", "/path/to/DejaVuSans.ttf", uni=True)
-    pdf.set_font("DejaVu", size=12)
+    # Use a default font (no external file required)
+    pdf.set_font("Arial", size=12)
 
     # Title
-    pdf.set_font("DejaVu", style="B", size=16)
+    pdf.set_font("Arial", style="B", size=16)
     pdf.cell(0, 10, "LLM Glossary", ln=True, align="C")
     pdf.ln(10)
 
     # Add glossary terms and definitions
-    pdf.set_font("DejaVu", size=12)
+    pdf.set_font("Arial", size=12)
     for term, definition in glossary.items():
-        pdf.set_font("DejaVu", style="B", size=12)
+        pdf.set_font("Arial", style="B", size=12)
         pdf.cell(0, 10, term, ln=True)
-        pdf.set_font("DejaVu", size=12)
+        pdf.set_font("Arial", size=12)
         pdf.multi_cell(0, 10, definition)
         pdf.ln(5)
 

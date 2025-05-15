@@ -1,5 +1,6 @@
 import streamlit as st
 from datetime import datetime  # Import datetime for the footer
+import io  # For creating downloadable files
 from utils.helpers import (
     display_expand_collapse_controls,
     expander_section,
@@ -7,7 +8,7 @@ from utils.helpers import (
     reset_expand_collapse_triggers,
     reset_progress,
     save_progress,
-    load_progress,inject_custom_css
+    load_progress, inject_custom_css
 )
 
 PROGRESS_FILE = "progress.json"
@@ -19,9 +20,9 @@ def render():
     display_expand_collapse_controls(current_page)
 
     # --- Load progress from file ---
-    if "read_sections" not in st.session_state:
+    if "ethics_read_sections" not in st.session_state:
         progress_data = load_progress()
-        st.session_state["read_sections"] = set(progress_data.get("read_sections", []))
+        st.session_state["ethics_read_sections"] = set(progress_data.get("ethics_read_sections", []))
         
     # --- Define sections for progress tracking ---
     ethics_sections = {
@@ -70,17 +71,7 @@ def render():
             "- Generate a welcome message for a task management app\n\n"
             "**Answer:** The first option assumes gender and age, which may reflect bias."
         ),
-        "Ethical Review Template": (
-            "Use this ethical review form when designing any AI-powered feature.\n\n"
-            "### Ethical Review Form\n\n"
-            "- **Feature Name:**\n"
-            "- **Bias Testing Completed?** Yes/No\n"
-            "- **Human Review Process in Place?** Yes/No\n"
-            "- **Final Risk Assessment:** Low/Medium/High\n"
-            "- **Disclosure to Users?** Yes/No\n"
-            "- **Purpose of AI Usage:**\n"
-            "- **Potential Ethical Risks:**"
-        )
+        "Ethical Review Template": None  # Placeholder for the Ethical Review Template
     }
 
     # --- Sub-topic selector ---
@@ -98,27 +89,81 @@ def render():
     for title, content in ethics_sections.items():
         if ethics_subtopic == "All" or ethics_subtopic == title:
             with expander_section(title):
-                # Header with checkbox on the right
-                top_col_left, top_col_right = st.columns([5, 1])
-                with top_col_left:
-                    st.markdown(f"#### {title}")
-                with top_col_right:
-                    checkbox_key = f"read_checkbox_{title}"
+                if title == "Ethical Review Template":
+                    st.markdown("### What Is This Template?")
+                    st.write("""
+                    This is a structured form to help startup teams evaluate whether an AI-powered feature is being designed and used ethically and responsibly.
+                    It’s useful for catching potential risks early — like bias, misinformation, or lack of transparency.
+                    """)
 
-                    # Initialize checkbox state if not already set
-                    if checkbox_key not in st.session_state:
-                        st.session_state[checkbox_key] = title in st.session_state["ethics_read_sections"]
+                    st.markdown("### When Should You Use It?")
+                    st.markdown("""
+                    - When building any new feature that involves LLMs or AI-generated content  
+                    - Before launching customer-facing AI functionality  
+                    - During internal QA or product review meetings  
+                    """)
 
-                    # Render the checkbox
-                    completed = st.checkbox("Mark as complete", key=checkbox_key, value=st.session_state[checkbox_key])
+                    st.markdown("### How to Use It")
+                    st.write("""
+                    Complete the form below as a team (product, design, engineering).  
+                    Save or export the answers as part of your product documentation or AI governance records.
+                    """)
 
-                    # Sync read_sections with checkbox state
-                    if completed:
-                        st.session_state["ethics_read_sections"].add(title)
-                    else:
-                        st.session_state["ethics_read_sections"].discard(title)
+                    st.markdown("### Why It’s Useful for Startups")
+                    st.write("""
+                        - Helps meet ethical and legal expectations early in your product lifecycle
+                        - Builds trust with your users and investors
+                        - Prevents future reputational or legal risk
+                        - Encourages intentional, responsible design decisions
+                        """)
 
-                st.markdown(content)
+                    with st.form("embedded_ethical_review_form"):
+                        st.subheader("🔍 Ethical Review Form")
+
+                        col1, col2 = st.columns(2)
+                        with col1:
+                            feature_name = st.text_input("Feature Name")
+                            bias_tested = st.radio("Bias Testing Completed?", ["Yes", "No"])
+                            human_review = st.radio("Human Review Process in Place?", ["Yes", "No"])
+                        with col2:
+                            risk_level = st.selectbox("Final Risk Assessment", ["Low", "Medium", "High"])
+                            disclosure = st.radio("Disclosure to Users?", ["Yes", "No"])
+
+                        purpose = st.text_area("Purpose of AI Usage")
+                        risks = st.text_area("Potential Ethical Risks (e.g., bias, exclusion, hallucination)")
+
+                        submitted = st.form_submit_button("Submit Review")
+
+                        if submitted:
+                            st.success("Review submitted. Please copy or document your answers for records.")
+                            st.markdown("### 📄 Review Summary")
+                            st.write(f"**Feature Name:** {feature_name}")
+                            st.write(f"**Purpose:** {purpose}")
+                            st.write(f"**Potential Risks:** {risks}")
+                            st.write(f"**Bias Testing Completed:** {bias_tested}")
+                            st.write(f"**Human Review In Place:** {human_review}")
+                            st.write(f"**Disclosure to Users:** {disclosure}")
+                            st.write(f"**Final Risk Assessment:** {risk_level}")
+
+                            # Create a downloadable file
+                            review_data = f"""
+                            Feature Name: {feature_name}
+                            Purpose: {purpose}
+                            Potential Risks: {risks}
+                            Bias Testing Completed: {bias_tested}
+                            Human Review In Place: {human_review}
+                            Disclosure to Users: {disclosure}
+                            Final Risk Assessment: {risk_level}
+                            """
+                            review_file = io.StringIO(review_data)
+                            st.download_button(
+                                label="📥 Download Review",
+                                data=review_file.getvalue(),
+                                file_name=f"{feature_name}_ethical_review.txt",
+                                mime="text/plain"
+                            )
+                else:
+                    st.markdown(content)
 
     # --- Progress tracking ---
     total_sections = len(ethics_sections)
@@ -130,10 +175,10 @@ def render():
     st.caption(f"You’ve completed **{read_sections} of {total_sections}** sections ({progress}%)")
     
     if st.button("Reset Progress"):
-        reset_progress(ethics_sections)
+        reset_progress(ethics_sections, "ethics_read_sections")
 
     # Save progress to file whenever it changes
-    save_progress()
+    save_progress("ethics_read_sections")
     reset_expand_collapse_triggers()
 
     # --- Footer ---
