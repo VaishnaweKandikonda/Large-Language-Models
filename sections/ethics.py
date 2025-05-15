@@ -19,10 +19,10 @@ def render():
     display_expand_collapse_controls(current_page)
 
     # --- Load progress from file ---
-    if "ethics_read_sections" not in st.session_state:
+    if "read_sections" not in st.session_state:
         progress_data = load_progress()
-        st.session_state["ethics_read_sections"] = set(progress_data.get("ethics_read_sections", []))
-
+        st.session_state["read_sections"] = set(progress_data.get("read_sections", []))
+        
     # --- Define sections for progress tracking ---
     ethics_sections = {
         "Why Ethics and Fairness Matter": (

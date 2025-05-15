@@ -152,11 +152,12 @@ def reset_progress(sections):
             del st.session_state[checkbox_key]  # Remove the checkbox state
 
     # Reset the read sections set for the current page
-    st.session_state["read_sections"] = set()
+    page_key = f"{sections}_read_sections"
+    st.session_state[page_key] = set()
 
     # Save progress to file
     save_progress()
+
     # Notify the user and rerun the app
     st.success("Progress reset! All checkboxes have been cleared.")
-    
     st.rerun()

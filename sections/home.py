@@ -23,7 +23,7 @@ def render():
     if "read_sections" not in st.session_state:
         progress_data = load_progress()
         st.session_state["read_sections"] = set(progress_data.get("read_sections", []))
-
+        
     # --- Define Home page sections ---
     home_sections = {
         "Introduction to Large Language Models": (

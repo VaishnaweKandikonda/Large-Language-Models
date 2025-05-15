@@ -19,10 +19,9 @@ def render():
     display_expand_collapse_controls(current_page)
 
     # --- Load progress from file ---
-    if "hallucination_read_sections" not in st.session_state:
+    if "read_sections" not in st.session_state:
         progress_data = load_progress()
-        st.session_state["hallucination_read_sections"] = set(progress_data.get("hallucination_read_sections", []))
-
+        st.session_state["read_sections"] = set(progress_data.get("read_sections", []))
     # --- Define sections for progress tracking ---
     halluc_sections = {
         "What Are Hallucinations?": (
