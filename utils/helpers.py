@@ -139,20 +139,28 @@ def load_progress():
     except Exception as e:
         st.error(f"Error loading progress: {e}")
         return {"read_sections": []}
-
-def reset_progress(home_sections):
-    """Reset all progress and clear checkboxes."""
+    
+def reset_progress(sections):
+    """Reset all progress and clear checkboxes for the given sections."""
     reset_expansion_state()
-    st.session_state.pop("Sub-topic", None)
+    st.session_state.pop("Sub-topic", None)  # Clear the sub-topic selector state
 
     # Clear all checkboxes and read sections
-    for title in home_sections.keys():
+    for title in sections.keys():
         checkbox_key = f"read_checkbox_{title}"
         if checkbox_key in st.session_state:
             del st.session_state[checkbox_key]  # Remove the checkbox state
 
-    # Reset the read sections set
-    st.session_state["read_sections"] = set()
+    # Reset the read sections set for the current page
+    page_key = f"{sections}_read_sections"
+    st.session_state[page_key] = set()
+
+    # Save progress to file
+    save_progress()
+
+    # Notify the user and rerun the app
+    st.success("Progress reset! All checkboxes have been cleared.")
+    st.rerun()
 
     # Save progress to file
     save_progress()
