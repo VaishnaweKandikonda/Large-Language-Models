@@ -168,9 +168,9 @@ def render():
                                     )
                                 else:
                                     st.warning("Review data is empty. Please fill out the form to enable the download.")
-    else:
-        st.warning("Please provide a valid feature name to enable the download.")                else:
-    st.markdown(content)
+                else:
+                    st.warning("Please provide a valid feature name to enable the download.")                else:
+            st.markdown(content)
 
     # --- Progress tracking ---
     total_sections = len(ethics_sections)
